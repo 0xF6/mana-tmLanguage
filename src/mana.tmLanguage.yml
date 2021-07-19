@@ -96,8 +96,8 @@ repository:
               match: '(?<!\.)\b(struct|record|union)\b'
     storage-modifier:
         patterns:
-            - name: storage.modifier.mana
-              match: '\b(gc|new|override|contract|delete|native|virtual|forwarded|getter|setter|public|special|protected|internal|private|static|readonly|const|extern|auto|extensions)\b'
+            - name: storage.modifier
+              match: '\b(gc|override|contract|native|virtual|forwarded|getter|setter|public|special|protected|internal|private|static|readonly|const|extern|auto|extensions)\b'
     union-declaration:
         begin: \b(union)\s+
         beginCaptures:
@@ -152,6 +152,8 @@ repository:
                   - include: "#punctuation-semicolon"
                   - include: "#operation-declaration"
                   - include: "#union-declaration"
+                  - include: "#constructor-declaration"
+                  - include: "#destructor-declaration"
                   - include: "#storage-modifier"
                   - include: "#method-declaration"
                   - include: "#attribute-section"
@@ -180,6 +182,8 @@ repository:
                   - include: "#operation-declaration"
                   - include: "#union-declaration"
                   - include: "#storage-modifier"
+                  - include: "#constructor-declaration"
+                  - include: "#destructor-declaration"
                   - include: "#method-declaration"
                   - include: "#attribute-section"
     indexer-declaration:
@@ -217,6 +221,36 @@ repository:
             - include: "#variable-initializer"
             - include: "#class-or-struct-members"
             - include: "#literal"
+    constructor-declaration:
+        begin: "(?<!\.)(ne2w|new)(?>\s?+)\(((?>.)+)?\)"
+        beginCaptures:
+            "1":
+                name: keyword.other.new.mana
+            "2":
+                patterns:
+                    - include: "#operation-argument-list"
+        end: '(?<=\})|(?=;)'
+        patterns:
+            - include: "#comment"
+            - include: "#parenthesized-parameter-list"
+            - include: "#generic-constraints"
+            - include: "#expression-body"
+            - include: "#block"
+    destructor-declaration:
+        begin: "(?<!\.)(delete)(?>\s?+)\(((?>.)+)?\)"
+        beginCaptures:
+            "1":
+                name: keyword.other.new.mana
+            "2":
+                patterns:
+                    - include: "#operation-argument-list"
+        end: '(?<=\})|(?=;)'
+        patterns:
+            - include: "#comment"
+            - include: "#parenthesized-parameter-list"
+            - include: "#generic-constraints"
+            - include: "#expression-body"
+            - include: "#block"
     method-declaration:
         begin: (?<identifier>@?[_[:alpha:]][_[:alnum:]]*)(?>\s?+)\(((?>.)+)?\)(?>\s?+)\:(?>\s?+)(@?[_[:alpha:]][_[:alnum:]]*)
         beginCaptures:
@@ -541,6 +575,13 @@ repository:
         patterns:
             - include: "#object-creation-with-parameters"
             - include: "#object-creation-expression-with-no-parameters"
+    this-or-base-expression:
+        match: '\b(?:(base)|(this))\b'
+        captures:
+            "1":
+                name: keyword.other.base.mana
+            "2":
+                name: keyword.other.this.mana
     type:
         name: meta.type.mana
         patterns:
@@ -581,11 +622,26 @@ repository:
             - include: "#gc-modifier"
             - include: "#sync-modifier"
             - include: "#body-operation-statament"
+    field-declaration:
+        begin: "(?x)(?<typename>(?:(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? (?<nameandtypeargs>\g<identifier>\s*(?<typeargs>\s*<(?:[^<>]|\g<typeargs>)+>\s*)?      )      (?:\s*\.\s*\g<nameandtypeargs>)* | (?<tuple>\s*\((?:[^\(\)]|\g<tuple>)+\)))(?:\s*\?\s*)? (?:\s*\[(?:\s*,\s*)*\]\s*)* ))\s+(\g<identifier>)\s* (?!=>|==)(?=,|;|=|$)"
+        beginCaptures:
+            "1":
+                patterns:
+                    - { include: "#type" }
+            "6":
+                name: entity.name.variable.field.mana
+        end: "(?=;)"
+        patterns:
+            - name: entity.name.variable.field.mana
+              match: "@?[_[:alpha:]][_[:alnum:]]*"
+            - include: "#punctuation-comma"
+            - include: "#comment"
+            - include: "#variable-initializer"
+            - include: "#class-or-struct-members"
     class-or-struct-members:
         patterns:
             - include: "#preprocessor"
             - include: "#comment"
-            - include: "#storage-modifier"
             - include: "#type-declarations"
             - include: "#property-declaration"
             - include: "#field-declaration"
@@ -594,8 +650,10 @@ repository:
             - include: "#variable-initializer"
             - include: "#constructor-declaration"
             - include: "#destructor-declaration"
+            - include: "#storage-modifier"
             - include: "#operator-declaration"
             - include: "#conversion-operator-declaration"
+            - include: "#tor-declaration"
             - include: "#method-declaration"
             - include: "#attribute-section"
             - include: "#punctuation-semicolon"
