@@ -1,9 +1,9 @@
-scopeName: "source.mana"
+scopeName: "source.vein"
 uuid: "acd10959-e561-4695-9d2a-c6133f52a163"
 fileTypes: [
   "mana"
 ]
-name: "Mana Language"
+name: "Vein Language"
 patterns: [
   {
     include: "#operation-declaration"
@@ -70,29 +70,29 @@ repository:
   comment:
     patterns: [
       {
-        name: "comment.block.mana"
+        name: "comment.block.vein"
         begin: "/\\*"
         beginCaptures:
           "0":
-            name: "punctuation.definition.comment.mana"
+            name: "punctuation.definition.comment.vein"
         end: "\\*/"
         endCaptures:
           "0":
-            name: "punctuation.definition.comment.mana"
+            name: "punctuation.definition.comment.vein"
       }
       {
         begin: "(^\\s+)?(?=//)"
         beginCaptures:
           "1":
-            name: "punctuation.whitespace.comment.leading.mana"
+            name: "punctuation.whitespace.comment.leading.vein"
         end: "(?=$)"
         patterns: [
           {
-            name: "comment.block.documentation.mana"
+            name: "comment.block.documentation.vein"
             begin: "(?<!/)///(?!/)"
             beginCaptures:
               "0":
-                name: "punctuation.definition.comment.mana"
+                name: "punctuation.definition.comment.vein"
             end: "(?=$)"
             patterns: [
               {
@@ -101,11 +101,11 @@ repository:
             ]
           }
           {
-            name: "comment.line.double-slash.mana"
+            name: "comment.line.double-slash.vein"
             begin: "(?<!/)//(?:(?!/)|(?=//))"
             beginCaptures:
               "0":
-                name: "punctuation.definition.comment.mana"
+                name: "punctuation.definition.comment.vein"
             end: "(?=$)"
           }
         ]
@@ -113,84 +113,84 @@ repository:
     ]
   preprocessor:
     match: "^\\s*((#)\\s*(use|space|load|ignore))\\b\\s*"
-    name: "meta.preprocessor.mana"
+    name: "meta.preprocessor.vein"
   operators:
     patterns: [
       {
         match: "(?<![\\w$])(sizeof)(?![\\w$])"
-        name: "keyword.operator.sizeof.mana"
+        name: "keyword.operator.sizeof.vein"
       }
       {
         match: "--"
-        name: "keyword.operator.decrement.mana"
+        name: "keyword.operator.decrement.vein"
       }
       {
         match: "\\+\\+"
-        name: "keyword.operator.increment.mana"
+        name: "keyword.operator.increment.vein"
       }
       {
         match: "%=|\\+=|-=|\\*=|(?<!\\()/="
-        name: "keyword.operator.assignment.compound.mana"
+        name: "keyword.operator.assignment.compound.vein"
       }
       {
         match: "&=|\\^=|<<=|>>=|\\|="
-        name: "keyword.operator.assignment.compound.bitwise.mana"
+        name: "keyword.operator.assignment.compound.bitwise.vein"
       }
       {
         match: "<<|>>"
-        name: "keyword.operator.bitwise.shift.mana"
+        name: "keyword.operator.bitwise.shift.vein"
       }
       {
         match: "!=|<=|>=|==|<|>"
-        name: "keyword.operator.comparison.mana"
+        name: "keyword.operator.comparison.vein"
       }
       {
         match: "&&|!|\\|\\|"
-        name: "keyword.operator.logical.mana"
+        name: "keyword.operator.logical.vein"
       }
       {
         match: "&|\\||\\^|~"
-        name: "keyword.operator.mana"
+        name: "keyword.operator.vein"
       }
       {
         match: "="
-        name: "keyword.operator.assignment.mana"
+        name: "keyword.operator.assignment.vein"
       }
       {
         match: "%|\\*|/|-|\\+"
-        name: "keyword.operator.mana"
+        name: "keyword.operator.vein"
       }
     ]
   keywords:
     patterns: [
       {
-        name: "keyword.control.mana"
+        name: "keyword.control.vein"
         match: "(?<!\\.)\\b(global|char|this|base|using|auto|const|if|else|while|do|body|for|is|in|return|fail)\\b"
       }
       {
-        name: "keyword.control.core.mana"
+        name: "keyword.control.core.vein"
         match: "(?<!\\.)\\b(struct|record|union)\\b"
       }
     ]
   "storage-modifier":
     patterns: [
       {
-        name: "storage.modifier.mana"
-        match: "\\b(gc|new|override|contract|delete|native|virtual|forwarded|getter|setter|public|special|protected|internal|private|static|readonly|const|extern|auto|extensions)\\b"
+        name: "storage.modifier"
+        match: "\\b(gc|override|contract|native|virtual|forwarded|getter|setter|public|special|protected|internal|private|static|readonly|const|extern|auto|extensions)\\b"
       }
     ]
   "union-declaration":
     begin: "\\b(union)\\s+"
     beginCaptures:
       "1":
-        name: "keyword.other.union.mana"
+        name: "keyword.other.union.vein"
     end: "(?<=\\})"
     patterns: [
       {
         include: "#comment"
       }
       {
-        name: "entity.name.type.union.mana"
+        name: "entity.name.type.union.vein"
         match: "@?[_[:alpha:]][_[:alnum:]]*"
       }
       {
@@ -200,11 +200,11 @@ repository:
         begin: "\\{"
         beginCaptures:
           "0":
-            name: "punctuation.curlybrace.open.mana"
+            name: "punctuation.curlybrace.open.vein"
         end: "\\}"
         endCaptures:
           "0":
-            name: "punctuation.curlybrace.close.mana"
+            name: "punctuation.curlybrace.close.vein"
         patterns: [
           {
             include: "#comment"
@@ -228,7 +228,7 @@ repository:
     begin: "\\b(aspect|record)\\s+"
     beginCaptures:
       "1":
-        name: "keyword.other.class.mana"
+        name: "keyword.other.class.vein"
     end: "(?=;)|(?<=\\})"
     patterns: [
       {
@@ -239,12 +239,12 @@ repository:
         match: "((?<variable_name>[a-zA-Z0-9]+)\\s?+\\:\\s?+(?<type_name>[a-zA-Z0-9]+))(,?)+"
         captures:
           "2":
-            name: "entity.name.variable.local.mana"
+            name: "entity.name.variable.local.vein"
           "3":
             name: "entity.name.type"
       }
       {
-        name: "entity.name.type.class.mana"
+        name: "entity.name.type.class.vein"
         match: "@?[_[:alpha:]][_[:alnum:]]*"
       }
       {
@@ -254,11 +254,11 @@ repository:
         begin: "\\{"
         beginCaptures:
           "0":
-            name: "punctuation.curlybrace.open.mana"
+            name: "punctuation.curlybrace.open.vein"
         end: "\\}"
         endCaptures:
           "0":
-            name: "punctuation.curlybrace.close.mana"
+            name: "punctuation.curlybrace.close.vein"
         patterns: [
           {
             include: "#comment"
@@ -277,6 +277,12 @@ repository:
           }
           {
             include: "#union-declaration"
+          }
+          {
+            include: "#constructor-declaration"
+          }
+          {
+            include: "#destructor-declaration"
           }
           {
             include: "#storage-modifier"
@@ -294,14 +300,14 @@ repository:
     begin: "\\b(class|struct|contract|extensions|interface)\\s+"
     beginCaptures:
       "1":
-        name: "keyword.other.class.mana"
+        name: "keyword.other.class.vein"
     end: "(?<=\\})"
     patterns: [
       {
         include: "#comment"
       }
       {
-        name: "entity.name.type.class.mana"
+        name: "entity.name.type.class.vein"
         match: "@?[_[:alpha:]][_[:alnum:]]*"
       }
       {
@@ -311,11 +317,11 @@ repository:
         begin: "\\{"
         beginCaptures:
           "0":
-            name: "punctuation.curlybrace.open.mana"
+            name: "punctuation.curlybrace.open.vein"
         end: "\\}"
         endCaptures:
           "0":
-            name: "punctuation.curlybrace.close.mana"
+            name: "punctuation.curlybrace.close.vein"
         patterns: [
           {
             include: "#comment"
@@ -339,6 +345,12 @@ repository:
             include: "#storage-modifier"
           }
           {
+            include: "#constructor-declaration"
+          }
+          {
+            include: "#destructor-declaration"
+          }
+          {
             include: "#method-declaration"
           }
           {
@@ -351,7 +363,7 @@ repository:
     begin: "(this)(?>\\s?+)\\[(.+)\\](?>\\s?+)\\:(?>\\s?+)(@?[_[:alpha:]][_[:alnum:]]*)"
     beginCaptures:
       "1":
-        name: "keyword.control.mana"
+        name: "keyword.control.vein"
       "2":
         patterns: [
           {
@@ -363,7 +375,7 @@ repository:
     end: "(?=;)"
     patterns: [
       {
-        name: "entity.name.variable.field.mana"
+        name: "entity.name.variable.field.vein"
         match: "@?[_[:alpha:]][_[:alnum:]]*"
       }
       {
@@ -386,13 +398,13 @@ repository:
     begin: "(@?[_[:alpha:]][_[:alnum:]]*)(?>\\s?+)\\:(?>\\s?+)(@?[_[:alpha:]][_[:alnum:]]*)"
     beginCaptures:
       "1":
-        name: "entity.name.variable.field.mana"
+        name: "entity.name.variable.field.vein"
       "2":
         name: "entity.name.type"
     end: "(?=;)"
     patterns: [
       {
-        name: "entity.name.variable.field.mana"
+        name: "entity.name.variable.field.vein"
         match: "@?[_[:alpha:]][_[:alnum:]]*"
       }
       {
@@ -411,11 +423,69 @@ repository:
         include: "#literal"
       }
     ]
+  "constructor-declaration":
+    begin: "(new)(?>\\s?+)\\(((?>.)+)?\\)"
+    beginCaptures:
+      "1":
+        name: "keyword.other.new.vein"
+      "2":
+        patterns: [
+          {
+            include: "#operation-argument-list"
+          }
+        ]
+    end: "(?<=\\})|(?=;)"
+    patterns: [
+      {
+        include: "#comment"
+      }
+      {
+        include: "#parenthesized-parameter-list"
+      }
+      {
+        include: "#generic-constraints"
+      }
+      {
+        include: "#expression-body"
+      }
+      {
+        include: "#block"
+      }
+    ]
+  "destructor-declaration":
+    begin: "(?<!\\.)(delete)(?>\\s?+)\\(((?>.)+)?\\)"
+    beginCaptures:
+      "1":
+        name: "keyword.other.new.vein"
+      "2":
+        patterns: [
+          {
+            include: "#operation-argument-list"
+          }
+        ]
+    end: "(?<=\\})|(?=;)"
+    patterns: [
+      {
+        include: "#comment"
+      }
+      {
+        include: "#parenthesized-parameter-list"
+      }
+      {
+        include: "#generic-constraints"
+      }
+      {
+        include: "#expression-body"
+      }
+      {
+        include: "#block"
+      }
+    ]
   "method-declaration":
     begin: "(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)(?>\\s?+)\\(((?>.)+)?\\)(?>\\s?+)\\:(?>\\s?+)(@?[_[:alpha:]][_[:alnum:]]*)"
     beginCaptures:
       "1":
-        name: "entity.name.function.mana"
+        name: "entity.name.function.vein"
       "2":
         patterns: [
           {
@@ -446,14 +516,14 @@ repository:
     begin: "(\\#typedef)\\s+"
     beginCaptures:
       "1":
-        name: "keyword.other.typedef.mana"
+        name: "keyword.other.typedef.vein"
     end: "(?<=\\=)"
     patterns: [
       {
         include: "#comment"
       }
       {
-        name: "entity.name.type.class.mana"
+        name: "entity.name.type.class.vein"
         match: "@?[_[:alpha:]][_[:alnum:]]*"
       }
       {
@@ -463,11 +533,11 @@ repository:
         begin: "\\{"
         beginCaptures:
           "0":
-            name: "punctuation.curlybrace.open.mana"
+            name: "punctuation.curlybrace.open.vein"
         end: "\\}"
         endCaptures:
           "0":
-            name: "punctuation.curlybrace.close.mana"
+            name: "punctuation.curlybrace.close.vein"
         patterns: [
           {
             include: "#punctuation-semicolon"
@@ -479,11 +549,11 @@ repository:
     begin: "\\{"
     beginCaptures:
       "0":
-        name: "punctuation.curlybrace.open.mana"
+        name: "punctuation.curlybrace.open.vein"
     end: "\\}"
     endCaptures:
       "0":
-        name: "punctuation.curlybrace.close.mana"
+        name: "punctuation.curlybrace.close.vein"
     patterns: [
       {
         include: "#statement"
@@ -565,18 +635,18 @@ repository:
     begin: "(?<!\\.)\\b(if)\\b\\s*(?=\\()"
     beginCaptures:
       "1":
-        name: "keyword.control.conditional.if.mana"
+        name: "keyword.control.conditional.if.vein"
     end: "(?<=\\})|(?=;)"
     patterns: [
       {
         begin: "\\("
         beginCaptures:
           "0":
-            name: "punctuation.parenthesis.open.mana"
+            name: "punctuation.parenthesis.open.vein"
         end: "\\)"
         endCaptures:
           "0":
-            name: "punctuation.parenthesis.close.mana"
+            name: "punctuation.parenthesis.close.vein"
         patterns: [
           {
             include: "#expression"
@@ -591,7 +661,7 @@ repository:
     begin: "(?<!\\.)\\b(return)\\b"
     beginCaptures:
       "1":
-        name: "keyword.control.flow.return.mana"
+        name: "keyword.control.flow.return.vein"
     end: "(?=;)"
     patterns: [
       {
@@ -605,7 +675,7 @@ repository:
     begin: "(?<!\\.)\\b(fail)([\\w\\W\\d\\D\\s\\n]+)(?=;)"
     beginCaptures:
       "1":
-        name: "keyword.control.flow.fail.mana"
+        name: "keyword.control.flow.fail.vein"
       "2":
         name: "mana.expression"
         patterns: [
@@ -629,7 +699,7 @@ repository:
     patterns: [
       {
         match: "(byte|float|double|bool|string|void|([ui|i](nt16|nt32|nt64)))\\b"
-        name: "support.type.mana"
+        name: "support.type.vein"
       }
       {
         match: "\\b%?(invalid)\\b"
@@ -637,16 +707,16 @@ repository:
       }
     ]
   "punctuation-hash":
-    name: "punctuation.separator.hash.mana"
+    name: "punctuation.separator.hash.vein"
     match: "#"
   "punctuation-comma":
-    name: "punctuation.separator.comma.mana"
+    name: "punctuation.separator.comma.vein"
     match: ","
   "punctuation-semicolon":
-    name: "punctuation.terminator.statement.mana"
+    name: "punctuation.terminator.statement.vein"
     match: ";"
   "punctuation-accessor":
-    name: "punctuation.accessor.mana"
+    name: "punctuation.accessor.vein"
     match: "\\."
   "type-name":
     patterns: [
@@ -654,9 +724,9 @@ repository:
         match: "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(\\:\\:)"
         captures:
           "1":
-            name: "entity.name.type.alias.mana"
+            name: "entity.name.type.alias.vein"
           "2":
-            name: "punctuation.separator.coloncolon.mana"
+            name: "punctuation.separator.coloncolon.vein"
       }
       {
         match: "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(\\.)"
@@ -664,13 +734,13 @@ repository:
           "1":
             name: "entity.name.type"
           "2":
-            name: "punctuation.accessor.mana"
+            name: "punctuation.accessor.vein"
       }
       {
         match: "(\\.)\\s*(@?[_[:alpha:]][_[:alnum:]]*)"
         captures:
           "1":
-            name: "punctuation.accessor.mana"
+            name: "punctuation.accessor.vein"
           "2":
             name: "entity.name.type"
       }
@@ -683,11 +753,11 @@ repository:
     begin: "<"
     beginCaptures:
       "0":
-        name: "punctuation.definition.typeparameters.begin.mana"
+        name: "punctuation.definition.typeparameters.begin.vein"
     end: ">"
     endCaptures:
       "0":
-        name: "punctuation.definition.typeparameters.end.mana"
+        name: "punctuation.definition.typeparameters.end.vein"
     patterns: [
       {
         include: "#comment"
@@ -705,7 +775,7 @@ repository:
         match: "(\\\\)\\n"
         captures:
           "1":
-            name: "constant.character.escape.line-continuation.mana"
+            name: "constant.character.escape.line-continuation.vein"
       }
     ]
   "backslash-escapes":
@@ -719,19 +789,19 @@ repository:
       u[a-fA-F0-9]{,4} |
       U[a-fA-F0-9]{,8} )
     '''
-    name: "constant.character.escape.mana"
+    name: "constant.character.escape.vein"
   strings:
     patterns: [
       {
         begin: "\""
         beginCaptures:
           "0":
-            name: "punctuation.definition.string.begin.mana"
+            name: "punctuation.definition.string.begin.vein"
         end: "\""
         endCaptures:
           "0":
-            name: "punctuation.definition.string.end.mana"
-        name: "string.quoted.double.mana"
+            name: "punctuation.definition.string.end.vein"
+        name: "string.quoted.double.vein"
         patterns: [
           {
             include: "#string_escaped_char"
@@ -748,12 +818,12 @@ repository:
         begin: "'"
         beginCaptures:
           "0":
-            name: "punctuation.definition.string.begin.mana"
+            name: "punctuation.definition.string.begin.vein"
         end: "'"
         endCaptures:
           "0":
-            name: "punctuation.definition.string.end.mana"
-        name: "string.quoted.single.mana"
+            name: "punctuation.definition.string.end.vein"
+        name: "string.quoted.single.vein"
         patterns: [
           {
             include: "#string_escaped_char"
@@ -765,17 +835,17 @@ repository:
       }
     ]
   "interpolated-string":
-    name: "string.quoted.double.mana"
+    name: "string.quoted.double.vein"
     begin: "\\$\""
     beginCaptures:
       "0":
-        name: "punctuation.definition.string.begin.mana"
+        name: "punctuation.definition.string.begin.vein"
     end: "(\")|((?:[^\\\\\\n])$)"
     endCaptures:
       "1":
-        name: "punctuation.definition.string.end.mana"
+        name: "punctuation.definition.string.end.vein"
       "2":
-        name: "invalid.illegal.newline.mana"
+        name: "invalid.illegal.newline.vein"
     patterns: [
       {
         include: "#string-character-escape"
@@ -785,17 +855,17 @@ repository:
       }
     ]
   interpolation:
-    name: "meta.interpolation.mana"
+    name: "meta.interpolation.vein"
     begin: "(?<=[^\\{]|^)((?:\\{\\{)*)(\\{)(?=[^\\{])"
     beginCaptures:
       "1":
-        name: "string.quoted.double.mana"
+        name: "string.quoted.double.vein"
       "2":
-        name: "punctuation.definition.interpolation.begin.mana"
+        name: "punctuation.definition.interpolation.begin.vein"
     end: "\\}"
     endCaptures:
       "0":
-        name: "punctuation.definition.interpolation.end.mana"
+        name: "punctuation.definition.interpolation.end.vein"
     patterns: [
       {
         include: "#expression"
@@ -889,7 +959,7 @@ repository:
       }
     ]
   identifier:
-    name: "variable.other.readwrite.mana"
+    name: "variable.other.readwrite.vein"
     match: "@?[_[:alpha:]][_[:alnum:]]*"
   literal:
     patterns: [
@@ -918,87 +988,87 @@ repository:
   "boolean-literal":
     patterns: [
       {
-        name: "constant.language.boolean.true.mana"
+        name: "constant.language.boolean.true.vein"
         match: "(?<!\\.)\\btrue\\b"
       }
       {
-        name: "constant.language.boolean.false.mana"
+        name: "constant.language.boolean.false.vein"
         match: "(?<!\\.)\\bfalse\\b"
       }
     ]
   "null-literal":
-    name: "constant.language.null.mana"
+    name: "constant.language.null.vein"
     match: "(?<!\\.)\\bnull\\b"
   "numeric-literal":
     patterns: [
       {
-        name: "constant.numeric.hex.mana"
+        name: "constant.numeric.hex.vein"
         match: "\\b0(x|X)[0-9a-fA-F_]+(U|u|L|l|UL|Ul|uL|ul|LU|Lu|lU|lu)?\\b"
       }
       {
-        name: "constant.numeric.binary.mana"
+        name: "constant.numeric.binary.vein"
         match: "\\b0(b|B)[01_]+(U|u|L|l|UL|Ul|uL|ul|LU|Lu|lU|lu)?\\b"
       }
       {
-        name: "constant.numeric.decimal.mana"
+        name: "constant.numeric.decimal.vein"
         match: "\\b([0-9_]+)?\\.[0-9_]+((e|E)(\\-?)[0-9]+)?(F|f|D|d|M|m|H|h)?\\b"
       }
       {
-        name: "constant.numeric.decimal.mana"
+        name: "constant.numeric.decimal.vein"
         match: "\\b[0-9_]+(e|E)(\\-?)[0-9_]+(F|f|D|d|M|m|H|h)?\\b"
       }
       {
-        name: "constant.numeric.decimal.mana"
+        name: "constant.numeric.decimal.vein"
         match: "\\b[0-9_]+(F|f|D|d|M|m|H|h)\\b"
       }
       {
-        name: "constant.numeric.decimal.mana"
+        name: "constant.numeric.decimal.vein"
         match: "\\b[0-9_]+(U|u|L|l|UL|Ul|uL|ul|LU|Lu|lU|lu)?\\b"
       }
       {
-        name: "constant.numeric.decimal.mana"
+        name: "constant.numeric.decimal.vein"
         match: "\\b(NaN|Infinity)\\b"
       }
     ]
   "char-literal":
-    name: "string.quoted.single.mana"
+    name: "string.quoted.single.vein"
     begin: "'"
     beginCaptures:
       "0":
-        name: "punctuation.definition.char.begin.mana"
+        name: "punctuation.definition.char.begin.vein"
     end: "(\\')|((?:[^\\\\\\n])$)"
     endCaptures:
       "1":
-        name: "punctuation.definition.char.end.mana"
+        name: "punctuation.definition.char.end.vein"
       "2":
-        name: "invalid.illegal.newline.mana"
+        name: "invalid.illegal.newline.vein"
     patterns: [
       {
         include: "#char-character-escape"
       }
     ]
   "char-character-escape":
-    name: "constant.character.escape.mana"
+    name: "constant.character.escape.vein"
     match: "\\\\(['\"\\\\0abfnrtv]|x[0-9a-fA-F]{1,4}|u[0-9a-fA-F]{4})"
   "string-literal":
-    name: "string.quoted.double.mana"
+    name: "string.quoted.double.vein"
     begin: "(?<!@)\""
     beginCaptures:
       "0":
-        name: "punctuation.definition.string.begin.mana"
+        name: "punctuation.definition.string.begin.vein"
     end: "(\")|((?:[^\\\\\\n])$)"
     endCaptures:
       "1":
-        name: "punctuation.definition.string.end.mana"
+        name: "punctuation.definition.string.end.vein"
       "2":
-        name: "invalid.illegal.newline.mana"
+        name: "invalid.illegal.newline.vein"
     patterns: [
       {
         include: "#string-character-escape"
       }
     ]
   "string-character-escape":
-    name: "constant.character.escape.mana"
+    name: "constant.character.escape.vein"
     match: "\\\\(['\"\\\\0abfnrtv]|x[0-9a-fA-F]{1,4}|U[0-9a-fA-F]{8}|u[0-9a-fA-F]{4})"
   "object-creation-expression":
     patterns: [
@@ -1009,8 +1079,15 @@ repository:
         include: "#object-creation-expression-with-no-parameters"
       }
     ]
+  "this-or-base-expression":
+    match: "\\b(?:(base)|(this))\\b"
+    captures:
+      "1":
+        name: "keyword.other.base.vein"
+      "2":
+        name: "keyword.other.this.vein"
   type:
-    name: "meta.type.mana"
+    name: "meta.type.vein"
     patterns: [
       {
         include: "#comment"
@@ -1038,11 +1115,11 @@ repository:
     begin: "\\b(operation)\\s+(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)(?<template_key><(\\S)>)?(\\[.+?\\]?)\\s?+(->)\\s?+(\\S+)(\\s?+(where)\\s?+(\\S+)\\s?+(is)\\s?+(struct|class))?"
     beginCaptures:
       "1":
-        name: "keyword.control.mana"
+        name: "keyword.control.vein"
       "2":
-        name: "entity.name.function.mana"
+        name: "entity.name.function.vein"
       "4":
-        name: "constant.numeric.generic.mana"
+        name: "constant.numeric.generic.vein"
       "5":
         patterns: [
           {
@@ -1050,13 +1127,13 @@ repository:
           }
         ]
       "6":
-        name: "keyword.operator.mana"
+        name: "keyword.operator.vein"
       "7":
         name: "entity.name.type"
       "9":
         name: "keyword.type"
       "10":
-        name: "constant.numeric.generic.mana"
+        name: "constant.numeric.generic.vein"
       "11":
         name: "keyword.type"
       "12":
@@ -1085,9 +1162,6 @@ repository:
         include: "#comment"
       }
       {
-        include: "#storage-modifier"
-      }
-      {
         include: "#type-declarations"
       }
       {
@@ -1112,10 +1186,16 @@ repository:
         include: "#destructor-declaration"
       }
       {
+        include: "#storage-modifier"
+      }
+      {
         include: "#operator-declaration"
       }
       {
         include: "#conversion-operator-declaration"
+      }
+      {
+        include: "#tor-declaration"
       }
       {
         include: "#method-declaration"
@@ -1131,11 +1211,11 @@ repository:
     begin: "\\("
     beginCaptures:
       "0":
-        name: "punctuation.parenthesis.open.mana"
+        name: "punctuation.parenthesis.open.vein"
     end: "\\)"
     endCaptures:
       "0":
-        name: "punctuation.parenthesis.close.mana"
+        name: "punctuation.parenthesis.close.vein"
     patterns: [
       {
         include: "#argument"
@@ -1148,20 +1228,20 @@ repository:
     match: "((?<variable_name>[a-zA-Z0-9]+)\\s?+\\:\\s?+(?<type_name>[a-zA-Z0-9]+))(,?)+"
     captures:
       "2":
-        name: "entity.name.variable.local.mana"
+        name: "entity.name.variable.local.vein"
       "3":
         name: "entity.name.type"
   "declaration-expression-local":
     match: "((?<variable_name>[a-zA-Z0-9]+)\\s?+\\:\\s?+(?<type_name>[a-zA-Z0-9]+))(,?)+"
     captures:
       "2":
-        name: "entity.name.variable.local.mana"
+        name: "entity.name.variable.local.vein"
       "3":
         name: "entity.name.type"
   argument:
     patterns: [
       {
-        name: "storage.modifier.mana"
+        name: "storage.modifier.vein"
         match: "\\b(ref|out|in)\\b"
       }
       {
@@ -1172,11 +1252,11 @@ repository:
     begin: "(\\()"
     beginCaptures:
       "0":
-        name: "punctuation.parenthesis.open.mana"
+        name: "punctuation.parenthesis.open.vein"
     end: "(\\))"
     endCaptures:
       "0":
-        name: "punctuation.parenthesis.close.mana"
+        name: "punctuation.parenthesis.close.vein"
     patterns: [
       {
         include: "#comment"
@@ -1198,15 +1278,15 @@ repository:
     begin: "(\\[)(assembly|module|field|event|method|param|property|return|type)?(\\:)?"
     beginCaptures:
       "1":
-        name: "punctuation.squarebracket.open.mana"
+        name: "punctuation.squarebracket.open.vein"
       "2":
-        name: "keyword.other.attribute-specifier.mana"
+        name: "keyword.other.attribute-specifier.vein"
       "3":
-        name: "punctuation.separator.colon.mana"
+        name: "punctuation.separator.colon.vein"
     end: "(\\])"
     endCaptures:
       "1":
-        name: "punctuation.squarebracket.close.mana"
+        name: "punctuation.squarebracket.close.vein"
     patterns: [
       {
         include: "#comment"
@@ -1231,11 +1311,11 @@ repository:
     begin: "(\\()"
     beginCaptures:
       "1":
-        name: "punctuation.parenthesis.open.mana"
+        name: "punctuation.parenthesis.open.vein"
     end: "(\\))"
     endCaptures:
       "1":
-        name: "punctuation.parenthesis.close.mana"
+        name: "punctuation.parenthesis.close.vein"
     patterns: [
       {
         include: "#attribute-named-argument"
@@ -1248,37 +1328,37 @@ repository:
       }
     ]
   "gc-modifier":
-    name: "entity.operation.gc.mana"
+    name: "entity.operation.gc.vein"
     match: "(?x)(gc)\\s+(((nocontrol|auto)\\;))"
     beginCaptures:
       "1":
-        name: "keyword.control.gc.mana"
+        name: "keyword.control.gc.vein"
       "4":
-        name: "keyword.control.gc.mana"
+        name: "keyword.control.gc.vein"
   "sync-modifier":
-    name: "entity.operation.sync.mana"
+    name: "entity.operation.sync.vein"
     match: "(?x)(sync)\\s+(((nocontrol|auto|inheritable)\\;)|\\{)"
     beginCaptures:
       "1":
-        name: "keyword.control.sync.mana"
+        name: "keyword.control.sync.vein"
       "4":
-        name: "keyword.control.sync.mana"
+        name: "keyword.control.sync.vein"
   "body-operation-statament":
     begin: "\\b(body)\\s+"
     beginCaptures:
       "1":
-        name: "keyword.control.body.mana"
+        name: "keyword.control.body.vein"
     end: "(?<=\\})"
     patterns: [
       {
         begin: "\\{"
         beginCaptures:
           "0":
-            name: "punctuation.curlybrace.open.mana"
+            name: "punctuation.curlybrace.open.vein"
         end: "\\}"
         endCaptures:
           "0":
-            name: "punctuation.curlybrace.close.mana"
+            name: "punctuation.curlybrace.close.vein"
         patterns: [
           {
             include: "#literal"
@@ -1314,7 +1394,7 @@ repository:
     begin: "(new)\\s+([_[:alpha:]][_[:alnum:]]*)(?=\\()"
     beginCaptures:
       "1":
-        name: "keyword.other.new.mana"
+        name: "keyword.other.new.vein"
       "2":
         name: "entity.name.type"
         patterns: [

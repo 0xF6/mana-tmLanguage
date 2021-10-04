@@ -9,7 +9,7 @@ const fs = require("fs");
 const path = require("path");
 const exec = require("child_process").exec;
 
-const inputGrammar = "src/mana.tmLanguage.yml";
+const inputGrammar = "src/vein.tmLanguage.yml";
 const grammarsDirectory = "grammars/";
 const jsOut = "out/";
 
@@ -28,7 +28,7 @@ gulp.task('buildTmLanguage', done => {
         fs.mkdirSync(grammarsDirectory);
     }
 
-    fs.writeFileSync(path.join(grammarsDirectory, 'mana.tmLanguage'), plistData);
+    fs.writeFileSync(path.join(grammarsDirectory, 'vein.tmLanguage'), plistData);
 
     done();
 });
@@ -55,15 +55,15 @@ gulp.task('buildVSCode', done => {
 
         const enhancedJson = {
             "information_for_contributors": [
-                "This file has been converted from https://github.com/0xF6/mana-tmLanguage/blob/master/grammars/mana.tmLanguage",
+                "This file has been converted from https://github.com/vein-lang/tmLanguage/blob/master/grammars/vein.tmLanguage",
                 "If you want to provide a fix or improvement, please create a pull request against the original repository.",
                 "Once accepted there, we are happy to receive an update request."
             ],
-            "version": `https://github.com/0xF6/mana-tmLanguage/commit/${commitSha}`,
+            "version": `https://github.com/vein-lang/tmLanguage/commit/${commitSha}`,
             ...jsonData
         }
 
-        fs.writeFileSync(path.join(grammarsDirectory, 'mana.tmLanguage.json'), JSON.stringify(enhancedJson, null, '\t'));
+        fs.writeFileSync(path.join(grammarsDirectory, 'vein.tmLanguage.json'), JSON.stringify(enhancedJson, null, '\t'));
 
         done();
     });
@@ -77,6 +77,7 @@ gulp.task('buildAtom', () => {
         .on("error", handleError);
 });
 
+/*
 gulp.task('compile', () => {
     const tsProject = ts.createProject("./tsconfig.json");
     return tsProject.src()
@@ -84,17 +85,17 @@ gulp.task('compile', () => {
         .pipe(gulp.dest(jsOut));
 });
 
-gulp.task('test', gulp.series('compile', done => {
-    const result = gulp.src(jsOut + "test/**/*.tests.js")
-        .pipe(mocha())
-        .on("error", handleError);
-
-    done();
-
-    return result;
-}));
+*/
+//gulp.task('test', gulp.series('compile', done => {
+//    const result = gulp.src(jsOut + "test/**/*.tests.js")
+//        .pipe(mocha())
+//        .on("error", handleError);
+//
+//    done();
+//
+//    return result;
+//}));
 
 gulp.task('default',
     gulp.series(
-        gulp.parallel('buildAtom', 'buildVSCode', 'buildTmLanguage'),
-        'test'));
+        gulp.parallel('buildAtom', 'buildVSCode', 'buildTmLanguage')));

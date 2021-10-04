@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>scopeName</key>
-    <string>source.mana</string>
+    <string>source.vein</string>
     <key>uuid</key>
     <string>acd10959-e561-4695-9d2a-c6133f52a163</string>
     <key>fileTypes</key>
@@ -11,7 +11,7 @@
       <string>mana</string>
     </array>
     <key>name</key>
-    <string>Mana Language</string>
+    <string>Vein Language</string>
     <key>patterns</key>
     <array>
       <dict>
@@ -105,7 +105,7 @@
         <array>
           <dict>
             <key>name</key>
-            <string>comment.block.mana</string>
+            <string>comment.block.vein</string>
             <key>begin</key>
             <string>/\*</string>
             <key>beginCaptures</key>
@@ -113,7 +113,7 @@
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.definition.comment.mana</string>
+                <string>punctuation.definition.comment.vein</string>
               </dict>
             </dict>
             <key>end</key>
@@ -123,7 +123,7 @@
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.definition.comment.mana</string>
+                <string>punctuation.definition.comment.vein</string>
               </dict>
             </dict>
           </dict>
@@ -135,7 +135,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.whitespace.comment.leading.mana</string>
+                <string>punctuation.whitespace.comment.leading.vein</string>
               </dict>
             </dict>
             <key>end</key>
@@ -144,7 +144,7 @@
             <array>
               <dict>
                 <key>name</key>
-                <string>comment.block.documentation.mana</string>
+                <string>comment.block.documentation.vein</string>
                 <key>begin</key>
                 <string>(?&lt;!/)///(?!/)</string>
                 <key>beginCaptures</key>
@@ -152,7 +152,7 @@
                   <key>0</key>
                   <dict>
                     <key>name</key>
-                    <string>punctuation.definition.comment.mana</string>
+                    <string>punctuation.definition.comment.vein</string>
                   </dict>
                 </dict>
                 <key>end</key>
@@ -167,7 +167,7 @@
               </dict>
               <dict>
                 <key>name</key>
-                <string>comment.line.double-slash.mana</string>
+                <string>comment.line.double-slash.vein</string>
                 <key>begin</key>
                 <string>(?&lt;!/)//(?:(?!/)|(?=//))</string>
                 <key>beginCaptures</key>
@@ -175,7 +175,7 @@
                   <key>0</key>
                   <dict>
                     <key>name</key>
-                    <string>punctuation.definition.comment.mana</string>
+                    <string>punctuation.definition.comment.vein</string>
                   </dict>
                 </dict>
                 <key>end</key>
@@ -190,7 +190,7 @@
         <key>match</key>
         <string>^\s*((#)\s*(use|space|load|ignore))\b\s*</string>
         <key>name</key>
-        <string>meta.preprocessor.mana</string>
+        <string>meta.preprocessor.vein</string>
       </dict>
       <key>operators</key>
       <dict>
@@ -200,67 +200,67 @@
             <key>match</key>
             <string>(?&lt;![\w$])(sizeof)(?![\w$])</string>
             <key>name</key>
-            <string>keyword.operator.sizeof.mana</string>
+            <string>keyword.operator.sizeof.vein</string>
           </dict>
           <dict>
             <key>match</key>
             <string>--</string>
             <key>name</key>
-            <string>keyword.operator.decrement.mana</string>
+            <string>keyword.operator.decrement.vein</string>
           </dict>
           <dict>
             <key>match</key>
             <string>\+\+</string>
             <key>name</key>
-            <string>keyword.operator.increment.mana</string>
+            <string>keyword.operator.increment.vein</string>
           </dict>
           <dict>
             <key>match</key>
             <string>%=|\+=|-=|\*=|(?&lt;!\()/=</string>
             <key>name</key>
-            <string>keyword.operator.assignment.compound.mana</string>
+            <string>keyword.operator.assignment.compound.vein</string>
           </dict>
           <dict>
             <key>match</key>
             <string>&amp;=|\^=|&lt;&lt;=|&gt;&gt;=|\|=</string>
             <key>name</key>
-            <string>keyword.operator.assignment.compound.bitwise.mana</string>
+            <string>keyword.operator.assignment.compound.bitwise.vein</string>
           </dict>
           <dict>
             <key>match</key>
             <string>&lt;&lt;|&gt;&gt;</string>
             <key>name</key>
-            <string>keyword.operator.bitwise.shift.mana</string>
+            <string>keyword.operator.bitwise.shift.vein</string>
           </dict>
           <dict>
             <key>match</key>
             <string>!=|&lt;=|&gt;=|==|&lt;|&gt;</string>
             <key>name</key>
-            <string>keyword.operator.comparison.mana</string>
+            <string>keyword.operator.comparison.vein</string>
           </dict>
           <dict>
             <key>match</key>
             <string>&amp;&amp;|!|\|\|</string>
             <key>name</key>
-            <string>keyword.operator.logical.mana</string>
+            <string>keyword.operator.logical.vein</string>
           </dict>
           <dict>
             <key>match</key>
             <string>&amp;|\||\^|~</string>
             <key>name</key>
-            <string>keyword.operator.mana</string>
+            <string>keyword.operator.vein</string>
           </dict>
           <dict>
             <key>match</key>
             <string>=</string>
             <key>name</key>
-            <string>keyword.operator.assignment.mana</string>
+            <string>keyword.operator.assignment.vein</string>
           </dict>
           <dict>
             <key>match</key>
             <string>%|\*|/|-|\+</string>
             <key>name</key>
-            <string>keyword.operator.mana</string>
+            <string>keyword.operator.vein</string>
           </dict>
         </array>
       </dict>
@@ -270,13 +270,13 @@
         <array>
           <dict>
             <key>name</key>
-            <string>keyword.control.mana</string>
+            <string>keyword.control.vein</string>
             <key>match</key>
             <string>(?&lt;!\.)\b(global|char|this|base|using|auto|const|if|else|while|do|body|for|is|in|return|fail)\b</string>
           </dict>
           <dict>
             <key>name</key>
-            <string>keyword.control.core.mana</string>
+            <string>keyword.control.core.vein</string>
             <key>match</key>
             <string>(?&lt;!\.)\b(struct|record|union)\b</string>
           </dict>
@@ -288,9 +288,9 @@
         <array>
           <dict>
             <key>name</key>
-            <string>storage.modifier.mana</string>
+            <string>storage.modifier</string>
             <key>match</key>
-            <string>\b(gc|new|override|contract|delete|native|virtual|forwarded|getter|setter|public|special|protected|internal|private|static|readonly|const|extern|auto|extensions)\b</string>
+            <string>\b(gc|override|contract|native|virtual|forwarded|getter|setter|public|special|protected|internal|private|static|readonly|const|extern|auto|extensions)\b</string>
           </dict>
         </array>
       </dict>
@@ -303,7 +303,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.union.mana</string>
+            <string>keyword.other.union.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -316,7 +316,7 @@
           </dict>
           <dict>
             <key>name</key>
-            <string>entity.name.type.union.mana</string>
+            <string>entity.name.type.union.vein</string>
             <key>match</key>
             <string>@?[_[:alpha:]][_[:alnum:]]*</string>
           </dict>
@@ -332,7 +332,7 @@
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.curlybrace.open.mana</string>
+                <string>punctuation.curlybrace.open.vein</string>
               </dict>
             </dict>
             <key>end</key>
@@ -342,7 +342,7 @@
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.curlybrace.close.mana</string>
+                <string>punctuation.curlybrace.close.vein</string>
               </dict>
             </dict>
             <key>patterns</key>
@@ -380,7 +380,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.class.mana</string>
+            <string>keyword.other.class.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -401,7 +401,7 @@
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>entity.name.variable.local.mana</string>
+                <string>entity.name.variable.local.vein</string>
               </dict>
               <key>3</key>
               <dict>
@@ -412,7 +412,7 @@
           </dict>
           <dict>
             <key>name</key>
-            <string>entity.name.type.class.mana</string>
+            <string>entity.name.type.class.vein</string>
             <key>match</key>
             <string>@?[_[:alpha:]][_[:alnum:]]*</string>
           </dict>
@@ -428,7 +428,7 @@
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.curlybrace.open.mana</string>
+                <string>punctuation.curlybrace.open.vein</string>
               </dict>
             </dict>
             <key>end</key>
@@ -438,7 +438,7 @@
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.curlybrace.close.mana</string>
+                <string>punctuation.curlybrace.close.vein</string>
               </dict>
             </dict>
             <key>patterns</key>
@@ -466,6 +466,14 @@
               <dict>
                 <key>include</key>
                 <string>#union-declaration</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#constructor-declaration</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#destructor-declaration</string>
               </dict>
               <dict>
                 <key>include</key>
@@ -492,7 +500,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.class.mana</string>
+            <string>keyword.other.class.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -505,7 +513,7 @@
           </dict>
           <dict>
             <key>name</key>
-            <string>entity.name.type.class.mana</string>
+            <string>entity.name.type.class.vein</string>
             <key>match</key>
             <string>@?[_[:alpha:]][_[:alnum:]]*</string>
           </dict>
@@ -521,7 +529,7 @@
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.curlybrace.open.mana</string>
+                <string>punctuation.curlybrace.open.vein</string>
               </dict>
             </dict>
             <key>end</key>
@@ -531,7 +539,7 @@
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.curlybrace.close.mana</string>
+                <string>punctuation.curlybrace.close.vein</string>
               </dict>
             </dict>
             <key>patterns</key>
@@ -566,6 +574,14 @@
               </dict>
               <dict>
                 <key>include</key>
+                <string>#constructor-declaration</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#destructor-declaration</string>
+              </dict>
+              <dict>
+                <key>include</key>
                 <string>#method-declaration</string>
               </dict>
               <dict>
@@ -585,7 +601,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.mana</string>
+            <string>keyword.control.vein</string>
           </dict>
           <key>2</key>
           <dict>
@@ -609,7 +625,7 @@
         <array>
           <dict>
             <key>name</key>
-            <string>entity.name.variable.field.mana</string>
+            <string>entity.name.variable.field.vein</string>
             <key>match</key>
             <string>@?[_[:alpha:]][_[:alnum:]]*</string>
           </dict>
@@ -644,7 +660,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>entity.name.variable.field.mana</string>
+            <string>entity.name.variable.field.vein</string>
           </dict>
           <key>2</key>
           <dict>
@@ -658,7 +674,7 @@
         <array>
           <dict>
             <key>name</key>
-            <string>entity.name.variable.field.mana</string>
+            <string>entity.name.variable.field.vein</string>
             <key>match</key>
             <string>@?[_[:alpha:]][_[:alnum:]]*</string>
           </dict>
@@ -684,6 +700,102 @@
           </dict>
         </array>
       </dict>
+      <key>constructor-declaration</key>
+      <dict>
+        <key>begin</key>
+        <string>(new)(?&gt;\s?+)\(((?&gt;.)+)?\)</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.new.vein</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#operation-argument-list</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\})|(?=;)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#parenthesized-parameter-list</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#generic-constraints</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression-body</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#block</string>
+          </dict>
+        </array>
+      </dict>
+      <key>destructor-declaration</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&lt;!\.)(delete)(?&gt;\s?+)\(((?&gt;.)+)?\)</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.new.vein</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#operation-argument-list</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\})|(?=;)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#parenthesized-parameter-list</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#generic-constraints</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression-body</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#block</string>
+          </dict>
+        </array>
+      </dict>
       <key>method-declaration</key>
       <dict>
         <key>begin</key>
@@ -693,7 +805,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>entity.name.function.mana</string>
+            <string>entity.name.function.vein</string>
           </dict>
           <key>2</key>
           <dict>
@@ -746,7 +858,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.typedef.mana</string>
+            <string>keyword.other.typedef.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -759,7 +871,7 @@
           </dict>
           <dict>
             <key>name</key>
-            <string>entity.name.type.class.mana</string>
+            <string>entity.name.type.class.vein</string>
             <key>match</key>
             <string>@?[_[:alpha:]][_[:alnum:]]*</string>
           </dict>
@@ -775,7 +887,7 @@
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.curlybrace.open.mana</string>
+                <string>punctuation.curlybrace.open.vein</string>
               </dict>
             </dict>
             <key>end</key>
@@ -785,7 +897,7 @@
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.curlybrace.close.mana</string>
+                <string>punctuation.curlybrace.close.vein</string>
               </dict>
             </dict>
             <key>patterns</key>
@@ -807,7 +919,7 @@
           <key>0</key>
           <dict>
             <key>name</key>
-            <string>punctuation.curlybrace.open.mana</string>
+            <string>punctuation.curlybrace.open.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -817,7 +929,7 @@
           <key>0</key>
           <dict>
             <key>name</key>
-            <string>punctuation.curlybrace.close.mana</string>
+            <string>punctuation.curlybrace.close.vein</string>
           </dict>
         </dict>
         <key>patterns</key>
@@ -935,7 +1047,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.conditional.if.mana</string>
+            <string>keyword.control.conditional.if.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -950,7 +1062,7 @@
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.parenthesis.open.mana</string>
+                <string>punctuation.parenthesis.open.vein</string>
               </dict>
             </dict>
             <key>end</key>
@@ -960,7 +1072,7 @@
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.parenthesis.close.mana</string>
+                <string>punctuation.parenthesis.close.vein</string>
               </dict>
             </dict>
             <key>patterns</key>
@@ -986,7 +1098,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.flow.return.mana</string>
+            <string>keyword.control.flow.return.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -1012,7 +1124,7 @@
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.flow.fail.mana</string>
+            <string>keyword.control.flow.fail.vein</string>
           </dict>
           <key>2</key>
           <dict>
@@ -1055,7 +1167,7 @@
             <key>match</key>
             <string>(byte|float|double|bool|string|void|([ui|i](nt16|nt32|nt64)))\b</string>
             <key>name</key>
-            <string>support.type.mana</string>
+            <string>support.type.vein</string>
           </dict>
           <dict>
             <key>match</key>
@@ -1068,28 +1180,28 @@
       <key>punctuation-hash</key>
       <dict>
         <key>name</key>
-        <string>punctuation.separator.hash.mana</string>
+        <string>punctuation.separator.hash.vein</string>
         <key>match</key>
         <string>#</string>
       </dict>
       <key>punctuation-comma</key>
       <dict>
         <key>name</key>
-        <string>punctuation.separator.comma.mana</string>
+        <string>punctuation.separator.comma.vein</string>
         <key>match</key>
         <string>,</string>
       </dict>
       <key>punctuation-semicolon</key>
       <dict>
         <key>name</key>
-        <string>punctuation.terminator.statement.mana</string>
+        <string>punctuation.terminator.statement.vein</string>
         <key>match</key>
         <string>;</string>
       </dict>
       <key>punctuation-accessor</key>
       <dict>
         <key>name</key>
-        <string>punctuation.accessor.mana</string>
+        <string>punctuation.accessor.vein</string>
         <key>match</key>
         <string>\.</string>
       </dict>
@@ -1105,12 +1217,12 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>entity.name.type.alias.mana</string>
+                <string>entity.name.type.alias.vein</string>
               </dict>
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.separator.coloncolon.mana</string>
+                <string>punctuation.separator.coloncolon.vein</string>
               </dict>
             </dict>
           </dict>
@@ -1127,7 +1239,7 @@
               <key>2</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.accessor.mana</string>
+                <string>punctuation.accessor.vein</string>
               </dict>
             </dict>
           </dict>
@@ -1139,7 +1251,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.accessor.mana</string>
+                <string>punctuation.accessor.vein</string>
               </dict>
               <key>2</key>
               <dict>
@@ -1165,7 +1277,7 @@
           <key>0</key>
           <dict>
             <key>name</key>
-            <string>punctuation.definition.typeparameters.begin.mana</string>
+            <string>punctuation.definition.typeparameters.begin.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -1175,7 +1287,7 @@
           <key>0</key>
           <dict>
             <key>name</key>
-            <string>punctuation.definition.typeparameters.end.mana</string>
+            <string>punctuation.definition.typeparameters.end.vein</string>
           </dict>
         </dict>
         <key>patterns</key>
@@ -1206,7 +1318,7 @@
               <key>1</key>
               <dict>
                 <key>name</key>
-                <string>constant.character.escape.line-continuation.mana</string>
+                <string>constant.character.escape.line-continuation.vein</string>
               </dict>
             </dict>
           </dict>
@@ -1224,7 +1336,7 @@ x[a-fA-F0-9]{,2} |
 u[a-fA-F0-9]{,4} |
 U[a-fA-F0-9]{,8} )</string>
         <key>name</key>
-        <string>constant.character.escape.mana</string>
+        <string>constant.character.escape.vein</string>
       </dict>
       <key>strings</key>
       <dict>
@@ -1238,7 +1350,7 @@ U[a-fA-F0-9]{,8} )</string>
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.definition.string.begin.mana</string>
+                <string>punctuation.definition.string.begin.vein</string>
               </dict>
             </dict>
             <key>end</key>
@@ -1248,11 +1360,11 @@ U[a-fA-F0-9]{,8} )</string>
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.definition.string.end.mana</string>
+                <string>punctuation.definition.string.end.vein</string>
               </dict>
             </dict>
             <key>name</key>
-            <string>string.quoted.double.mana</string>
+            <string>string.quoted.double.vein</string>
             <key>patterns</key>
             <array>
               <dict>
@@ -1277,7 +1389,7 @@ U[a-fA-F0-9]{,8} )</string>
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.definition.string.begin.mana</string>
+                <string>punctuation.definition.string.begin.vein</string>
               </dict>
             </dict>
             <key>end</key>
@@ -1287,11 +1399,11 @@ U[a-fA-F0-9]{,8} )</string>
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.definition.string.end.mana</string>
+                <string>punctuation.definition.string.end.vein</string>
               </dict>
             </dict>
             <key>name</key>
-            <string>string.quoted.single.mana</string>
+            <string>string.quoted.single.vein</string>
             <key>patterns</key>
             <array>
               <dict>
@@ -1309,7 +1421,7 @@ U[a-fA-F0-9]{,8} )</string>
       <key>interpolated-string</key>
       <dict>
         <key>name</key>
-        <string>string.quoted.double.mana</string>
+        <string>string.quoted.double.vein</string>
         <key>begin</key>
         <string>\$"</string>
         <key>beginCaptures</key>
@@ -1317,7 +1429,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>0</key>
           <dict>
             <key>name</key>
-            <string>punctuation.definition.string.begin.mana</string>
+            <string>punctuation.definition.string.begin.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -1327,12 +1439,12 @@ U[a-fA-F0-9]{,8} )</string>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>punctuation.definition.string.end.mana</string>
+            <string>punctuation.definition.string.end.vein</string>
           </dict>
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>invalid.illegal.newline.mana</string>
+            <string>invalid.illegal.newline.vein</string>
           </dict>
         </dict>
         <key>patterns</key>
@@ -1350,7 +1462,7 @@ U[a-fA-F0-9]{,8} )</string>
       <key>interpolation</key>
       <dict>
         <key>name</key>
-        <string>meta.interpolation.mana</string>
+        <string>meta.interpolation.vein</string>
         <key>begin</key>
         <string>(?&lt;=[^\{]|^)((?:\{\{)*)(\{)(?=[^\{])</string>
         <key>beginCaptures</key>
@@ -1358,12 +1470,12 @@ U[a-fA-F0-9]{,8} )</string>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>string.quoted.double.mana</string>
+            <string>string.quoted.double.vein</string>
           </dict>
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>punctuation.definition.interpolation.begin.mana</string>
+            <string>punctuation.definition.interpolation.begin.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -1373,7 +1485,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>0</key>
           <dict>
             <key>name</key>
-            <string>punctuation.definition.interpolation.end.mana</string>
+            <string>punctuation.definition.interpolation.end.vein</string>
           </dict>
         </dict>
         <key>patterns</key>
@@ -1505,7 +1617,7 @@ U[a-fA-F0-9]{,8} )</string>
       <key>identifier</key>
       <dict>
         <key>name</key>
-        <string>variable.other.readwrite.mana</string>
+        <string>variable.other.readwrite.vein</string>
         <key>match</key>
         <string>@?[_[:alpha:]][_[:alnum:]]*</string>
       </dict>
@@ -1549,13 +1661,13 @@ U[a-fA-F0-9]{,8} )</string>
         <array>
           <dict>
             <key>name</key>
-            <string>constant.language.boolean.true.mana</string>
+            <string>constant.language.boolean.true.vein</string>
             <key>match</key>
             <string>(?&lt;!\.)\btrue\b</string>
           </dict>
           <dict>
             <key>name</key>
-            <string>constant.language.boolean.false.mana</string>
+            <string>constant.language.boolean.false.vein</string>
             <key>match</key>
             <string>(?&lt;!\.)\bfalse\b</string>
           </dict>
@@ -1564,7 +1676,7 @@ U[a-fA-F0-9]{,8} )</string>
       <key>null-literal</key>
       <dict>
         <key>name</key>
-        <string>constant.language.null.mana</string>
+        <string>constant.language.null.vein</string>
         <key>match</key>
         <string>(?&lt;!\.)\bnull\b</string>
       </dict>
@@ -1574,43 +1686,43 @@ U[a-fA-F0-9]{,8} )</string>
         <array>
           <dict>
             <key>name</key>
-            <string>constant.numeric.hex.mana</string>
+            <string>constant.numeric.hex.vein</string>
             <key>match</key>
             <string>\b0(x|X)[0-9a-fA-F_]+(U|u|L|l|UL|Ul|uL|ul|LU|Lu|lU|lu)?\b</string>
           </dict>
           <dict>
             <key>name</key>
-            <string>constant.numeric.binary.mana</string>
+            <string>constant.numeric.binary.vein</string>
             <key>match</key>
             <string>\b0(b|B)[01_]+(U|u|L|l|UL|Ul|uL|ul|LU|Lu|lU|lu)?\b</string>
           </dict>
           <dict>
             <key>name</key>
-            <string>constant.numeric.decimal.mana</string>
+            <string>constant.numeric.decimal.vein</string>
             <key>match</key>
             <string>\b([0-9_]+)?\.[0-9_]+((e|E)(\-?)[0-9]+)?(F|f|D|d|M|m|H|h)?\b</string>
           </dict>
           <dict>
             <key>name</key>
-            <string>constant.numeric.decimal.mana</string>
+            <string>constant.numeric.decimal.vein</string>
             <key>match</key>
             <string>\b[0-9_]+(e|E)(\-?)[0-9_]+(F|f|D|d|M|m|H|h)?\b</string>
           </dict>
           <dict>
             <key>name</key>
-            <string>constant.numeric.decimal.mana</string>
+            <string>constant.numeric.decimal.vein</string>
             <key>match</key>
             <string>\b[0-9_]+(F|f|D|d|M|m|H|h)\b</string>
           </dict>
           <dict>
             <key>name</key>
-            <string>constant.numeric.decimal.mana</string>
+            <string>constant.numeric.decimal.vein</string>
             <key>match</key>
             <string>\b[0-9_]+(U|u|L|l|UL|Ul|uL|ul|LU|Lu|lU|lu)?\b</string>
           </dict>
           <dict>
             <key>name</key>
-            <string>constant.numeric.decimal.mana</string>
+            <string>constant.numeric.decimal.vein</string>
             <key>match</key>
             <string>\b(NaN|Infinity)\b</string>
           </dict>
@@ -1619,7 +1731,7 @@ U[a-fA-F0-9]{,8} )</string>
       <key>char-literal</key>
       <dict>
         <key>name</key>
-        <string>string.quoted.single.mana</string>
+        <string>string.quoted.single.vein</string>
         <key>begin</key>
         <string>'</string>
         <key>beginCaptures</key>
@@ -1627,7 +1739,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>0</key>
           <dict>
             <key>name</key>
-            <string>punctuation.definition.char.begin.mana</string>
+            <string>punctuation.definition.char.begin.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -1637,12 +1749,12 @@ U[a-fA-F0-9]{,8} )</string>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>punctuation.definition.char.end.mana</string>
+            <string>punctuation.definition.char.end.vein</string>
           </dict>
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>invalid.illegal.newline.mana</string>
+            <string>invalid.illegal.newline.vein</string>
           </dict>
         </dict>
         <key>patterns</key>
@@ -1656,14 +1768,14 @@ U[a-fA-F0-9]{,8} )</string>
       <key>char-character-escape</key>
       <dict>
         <key>name</key>
-        <string>constant.character.escape.mana</string>
+        <string>constant.character.escape.vein</string>
         <key>match</key>
         <string>\\(['"\\0abfnrtv]|x[0-9a-fA-F]{1,4}|u[0-9a-fA-F]{4})</string>
       </dict>
       <key>string-literal</key>
       <dict>
         <key>name</key>
-        <string>string.quoted.double.mana</string>
+        <string>string.quoted.double.vein</string>
         <key>begin</key>
         <string>(?&lt;!@)"</string>
         <key>beginCaptures</key>
@@ -1671,7 +1783,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>0</key>
           <dict>
             <key>name</key>
-            <string>punctuation.definition.string.begin.mana</string>
+            <string>punctuation.definition.string.begin.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -1681,12 +1793,12 @@ U[a-fA-F0-9]{,8} )</string>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>punctuation.definition.string.end.mana</string>
+            <string>punctuation.definition.string.end.vein</string>
           </dict>
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>invalid.illegal.newline.mana</string>
+            <string>invalid.illegal.newline.vein</string>
           </dict>
         </dict>
         <key>patterns</key>
@@ -1700,7 +1812,7 @@ U[a-fA-F0-9]{,8} )</string>
       <key>string-character-escape</key>
       <dict>
         <key>name</key>
-        <string>constant.character.escape.mana</string>
+        <string>constant.character.escape.vein</string>
         <key>match</key>
         <string>\\(['"\\0abfnrtv]|x[0-9a-fA-F]{1,4}|U[0-9a-fA-F]{8}|u[0-9a-fA-F]{4})</string>
       </dict>
@@ -1718,10 +1830,28 @@ U[a-fA-F0-9]{,8} )</string>
           </dict>
         </array>
       </dict>
+      <key>this-or-base-expression</key>
+      <dict>
+        <key>match</key>
+        <string>\b(?:(base)|(this))\b</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.base.vein</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.this.vein</string>
+          </dict>
+        </dict>
+      </dict>
       <key>type</key>
       <dict>
         <key>name</key>
-        <string>meta.type.mana</string>
+        <string>meta.type.vein</string>
         <key>patterns</key>
         <array>
           <dict>
@@ -1763,17 +1893,17 @@ U[a-fA-F0-9]{,8} )</string>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.mana</string>
+            <string>keyword.control.vein</string>
           </dict>
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>entity.name.function.mana</string>
+            <string>entity.name.function.vein</string>
           </dict>
           <key>4</key>
           <dict>
             <key>name</key>
-            <string>constant.numeric.generic.mana</string>
+            <string>constant.numeric.generic.vein</string>
           </dict>
           <key>5</key>
           <dict>
@@ -1788,7 +1918,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>6</key>
           <dict>
             <key>name</key>
-            <string>keyword.operator.mana</string>
+            <string>keyword.operator.vein</string>
           </dict>
           <key>7</key>
           <dict>
@@ -1803,7 +1933,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>10</key>
           <dict>
             <key>name</key>
-            <string>constant.numeric.generic.mana</string>
+            <string>constant.numeric.generic.vein</string>
           </dict>
           <key>11</key>
           <dict>
@@ -1852,10 +1982,6 @@ U[a-fA-F0-9]{,8} )</string>
           </dict>
           <dict>
             <key>include</key>
-            <string>#storage-modifier</string>
-          </dict>
-          <dict>
-            <key>include</key>
             <string>#type-declarations</string>
           </dict>
           <dict>
@@ -1888,11 +2014,19 @@ U[a-fA-F0-9]{,8} )</string>
           </dict>
           <dict>
             <key>include</key>
+            <string>#storage-modifier</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#operator-declaration</string>
           </dict>
           <dict>
             <key>include</key>
             <string>#conversion-operator-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#tor-declaration</string>
           </dict>
           <dict>
             <key>include</key>
@@ -1917,7 +2051,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>0</key>
           <dict>
             <key>name</key>
-            <string>punctuation.parenthesis.open.mana</string>
+            <string>punctuation.parenthesis.open.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -1927,7 +2061,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>0</key>
           <dict>
             <key>name</key>
-            <string>punctuation.parenthesis.close.mana</string>
+            <string>punctuation.parenthesis.close.vein</string>
           </dict>
         </dict>
         <key>patterns</key>
@@ -1951,7 +2085,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>entity.name.variable.local.mana</string>
+            <string>entity.name.variable.local.vein</string>
           </dict>
           <key>3</key>
           <dict>
@@ -1969,7 +2103,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>entity.name.variable.local.mana</string>
+            <string>entity.name.variable.local.vein</string>
           </dict>
           <key>3</key>
           <dict>
@@ -1984,7 +2118,7 @@ U[a-fA-F0-9]{,8} )</string>
         <array>
           <dict>
             <key>name</key>
-            <string>storage.modifier.mana</string>
+            <string>storage.modifier.vein</string>
             <key>match</key>
             <string>\b(ref|out|in)\b</string>
           </dict>
@@ -2003,7 +2137,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>0</key>
           <dict>
             <key>name</key>
-            <string>punctuation.parenthesis.open.mana</string>
+            <string>punctuation.parenthesis.open.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -2013,7 +2147,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>0</key>
           <dict>
             <key>name</key>
-            <string>punctuation.parenthesis.close.mana</string>
+            <string>punctuation.parenthesis.close.vein</string>
           </dict>
         </dict>
         <key>patterns</key>
@@ -2049,17 +2183,17 @@ U[a-fA-F0-9]{,8} )</string>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>punctuation.squarebracket.open.mana</string>
+            <string>punctuation.squarebracket.open.vein</string>
           </dict>
           <key>2</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.attribute-specifier.mana</string>
+            <string>keyword.other.attribute-specifier.vein</string>
           </dict>
           <key>3</key>
           <dict>
             <key>name</key>
-            <string>punctuation.separator.colon.mana</string>
+            <string>punctuation.separator.colon.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -2069,7 +2203,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>punctuation.squarebracket.close.mana</string>
+            <string>punctuation.squarebracket.close.vein</string>
           </dict>
         </dict>
         <key>patterns</key>
@@ -2111,7 +2245,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>punctuation.parenthesis.open.mana</string>
+            <string>punctuation.parenthesis.open.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -2121,7 +2255,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>punctuation.parenthesis.close.mana</string>
+            <string>punctuation.parenthesis.close.vein</string>
           </dict>
         </dict>
         <key>patterns</key>
@@ -2143,7 +2277,7 @@ U[a-fA-F0-9]{,8} )</string>
       <key>gc-modifier</key>
       <dict>
         <key>name</key>
-        <string>entity.operation.gc.mana</string>
+        <string>entity.operation.gc.vein</string>
         <key>match</key>
         <string>(?x)(gc)\s+(((nocontrol|auto)\;))</string>
         <key>beginCaptures</key>
@@ -2151,19 +2285,19 @@ U[a-fA-F0-9]{,8} )</string>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.gc.mana</string>
+            <string>keyword.control.gc.vein</string>
           </dict>
           <key>4</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.gc.mana</string>
+            <string>keyword.control.gc.vein</string>
           </dict>
         </dict>
       </dict>
       <key>sync-modifier</key>
       <dict>
         <key>name</key>
-        <string>entity.operation.sync.mana</string>
+        <string>entity.operation.sync.vein</string>
         <key>match</key>
         <string>(?x)(sync)\s+(((nocontrol|auto|inheritable)\;)|\{)</string>
         <key>beginCaptures</key>
@@ -2171,12 +2305,12 @@ U[a-fA-F0-9]{,8} )</string>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.sync.mana</string>
+            <string>keyword.control.sync.vein</string>
           </dict>
           <key>4</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.sync.mana</string>
+            <string>keyword.control.sync.vein</string>
           </dict>
         </dict>
       </dict>
@@ -2189,7 +2323,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.control.body.mana</string>
+            <string>keyword.control.body.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -2204,7 +2338,7 @@ U[a-fA-F0-9]{,8} )</string>
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.curlybrace.open.mana</string>
+                <string>punctuation.curlybrace.open.vein</string>
               </dict>
             </dict>
             <key>end</key>
@@ -2214,7 +2348,7 @@ U[a-fA-F0-9]{,8} )</string>
               <key>0</key>
               <dict>
                 <key>name</key>
-                <string>punctuation.curlybrace.close.mana</string>
+                <string>punctuation.curlybrace.close.vein</string>
               </dict>
             </dict>
             <key>patterns</key>
@@ -2268,7 +2402,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>1</key>
           <dict>
             <key>name</key>
-            <string>keyword.other.new.mana</string>
+            <string>keyword.other.new.vein</string>
           </dict>
           <key>2</key>
           <dict>
