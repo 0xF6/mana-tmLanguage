@@ -13,6 +13,7 @@
     }
   ],
   "scripts": {
+    "build": "gulp",
     "compile": "gulp",
     "test": "gulp",
     "prepublish": "gulp",

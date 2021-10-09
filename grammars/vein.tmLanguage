@@ -8,7 +8,7 @@
     <string>acd10959-e561-4695-9d2a-c6133f52a163</string>
     <key>fileTypes</key>
     <array>
-      <string>mana</string>
+      <string>vein</string>
     </array>
     <key>name</key>
     <string>Vein Language</string>
@@ -365,6 +365,10 @@
               </dict>
               <dict>
                 <key>include</key>
+                <string>#property-declaration</string>
+              </dict>
+              <dict>
+                <key>include</key>
                 <string>#field-declaration</string>
               </dict>
             </array>
@@ -446,6 +450,10 @@
               <dict>
                 <key>include</key>
                 <string>#comment</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#property-declaration</string>
               </dict>
               <dict>
                 <key>include</key>
@@ -547,6 +555,10 @@
               <dict>
                 <key>include</key>
                 <string>#comment</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#property-declaration</string>
               </dict>
               <dict>
                 <key>include</key>
@@ -654,7 +666,7 @@
       <key>field-declaration</key>
       <dict>
         <key>begin</key>
-        <string>(@?[_[:alpha:]][_[:alnum:]]*)(?&gt;\s?+)\:(?&gt;\s?+)(@?[_[:alpha:]][_[:alnum:]]*)</string>
+        <string>(@?[_[:alpha:]][_[:alnum:]]*)(?&gt;\s?+)\:(?&gt;\s?+)(@?[_[:alpha:]][_[:alnum:]]*)\s*(?!=&gt;|==)(?=,|;|=|$)</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -693,10 +705,6 @@
           <dict>
             <key>include</key>
             <string>#class-or-struct-members</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#literal</string>
           </dict>
         </array>
       </dict>
@@ -1887,7 +1895,7 @@ U[a-fA-F0-9]{,8} )</string>
       <key>operation-declaration</key>
       <dict>
         <key>begin</key>
-        <string>\b(operation)\s+(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)(?&lt;template_key&gt;&lt;(\S)&gt;)?(\[.+?\]?)\s?+(-&gt;)\s?+(\S+)(\s?+(where)\s?+(\S+)\s?+(is)\s?+(struct|class))?</string>
+        <string>\b(operation)\s+(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)(?&lt;template_key&gt;&lt;(\S)&gt;)?(\(.+?\)?)\s?+(:)\s?+(\S+)(\s?+(where)\s?+(\S+)\s?+(is)\s?+(struct|class))?</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -2171,6 +2179,113 @@ U[a-fA-F0-9]{,8} )</string>
           <dict>
             <key>include</key>
             <string>#variable-initializer</string>
+          </dict>
+        </array>
+      </dict>
+      <key>property-declaration</key>
+      <dict>
+        <key>begin</key>
+        <string>(@?[_[:alpha:]][_[:alnum:]]*)(?&gt;\s?+)\:(?&gt;\s?+)(@?[_[:alpha:]][_[:alnum:]]*)\s*(?=\{|=&gt;|$)</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.variable.field.vein</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.type</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\})</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#property-accessors</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression-body</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#variable-initializer</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#class-or-struct-members</string>
+          </dict>
+        </array>
+      </dict>
+      <key>property-accessors</key>
+      <dict>
+        <key>begin</key>
+        <string>\{</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.curlybrace.open.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>\}</string>
+        <key>endCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.curlybrace.close.vein</string>
+          </dict>
+        </dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>name</key>
+            <string>storage.modifier.vein</string>
+            <key>match</key>
+            <string>\b(private|protected|internal)\b</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.get.vein</string>
+            <key>match</key>
+            <string>\b(get)\b</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.set.vein</string>
+            <key>match</key>
+            <string>\b(set)\b</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#attribute-section</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression-body</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#block</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#punctuation-semicolon</string>
           </dict>
         </array>
       </dict>
