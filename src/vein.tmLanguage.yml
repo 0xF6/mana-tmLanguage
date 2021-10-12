@@ -315,6 +315,7 @@ repository:
             - include: "#switch-statement"
             - include: "#goto-statement"
             - include: "#return-statement"
+            - include: "#fail-statement"
             - include: "#break-or-continue-statement"
             - include: "#throw-statement"
             - include: "#yield-statement"
@@ -349,6 +350,15 @@ repository:
         beginCaptures:
             "1":
                 name: keyword.control.flow.return.vein
+        end: "(?=;)"
+        patterns:
+            - include: "#ref-modifier"
+            - include: "#expression"
+    fail-statement:
+        begin: '(?<!\.)\b(fail)\b'
+        beginCaptures:
+            "1":
+                name: keyword.control.flow.fail.vein
         end: "(?=;)"
         patterns:
             - include: "#ref-modifier"
