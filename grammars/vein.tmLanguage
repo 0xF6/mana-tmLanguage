@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
   <dict>
+    <key>$schema</key>
+    <string>https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json</string>
     <key>scopeName</key>
     <string>source.vein</string>
     <key>uuid</key>
@@ -37,10 +39,6 @@
       <dict>
         <key>include</key>
         <string>#operators</string>
-      </dict>
-      <dict>
-        <key>include</key>
-        <string>#numbers</string>
       </dict>
       <dict>
         <key>include</key>
@@ -706,6 +704,10 @@
             <key>include</key>
             <string>#class-or-struct-members</string>
           </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
+          </dict>
         </array>
       </dict>
       <key>constructor-declaration</key>
@@ -994,6 +996,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#fail-statement</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#break-or-continue-statement</string>
           </dict>
           <dict>
@@ -1043,6 +1049,87 @@
           <dict>
             <key>include</key>
             <string>#punctuation-semicolon</string>
+          </dict>
+        </array>
+      </dict>
+      <key>for-statement</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&lt;!\.)\b(for)\b\s*(?=\()</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.loop.for.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\})|(?=;)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>begin</key>
+            <string>\(</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.open.vein</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>\)</string>
+            <key>endCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.close.vein</string>
+              </dict>
+            </dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#local-variable-declaration</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#expression</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#punctuation-comma</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#punctuation-semicolon</string>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#statement</string>
+          </dict>
+        </array>
+      </dict>
+      <key>local-declaration</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#local-constant-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#local-variable-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#local-function-declaration</string>
           </dict>
         </array>
       </dict>
@@ -1107,6 +1194,32 @@
           <dict>
             <key>name</key>
             <string>keyword.control.flow.return.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=;)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#ref-modifier</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
+          </dict>
+        </array>
+      </dict>
+      <key>fail-statement</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&lt;!\.)\b(fail)\b</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.flow.fail.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -2080,6 +2193,10 @@ U[a-fA-F0-9]{,8} )</string>
           </dict>
           <dict>
             <key>include</key>
+            <string>#expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#punctuation-comma</string>
           </dict>
         </array>
@@ -2222,6 +2339,113 @@ U[a-fA-F0-9]{,8} )</string>
           <dict>
             <key>include</key>
             <string>#class-or-struct-members</string>
+          </dict>
+        </array>
+      </dict>
+      <key>local-variable-declaration</key>
+      <dict>
+        <key>begin</key>
+        <string>(?x)
+(?:
+    (?:(\busing)\s+)?
+    (?:(\bref)\s+(?:(\breadonly)\s+)?)?(\bauto|let\b)|
+    (?&lt;type_name&gt;
+    (?:
+        (?:ref\s+(?:readonly\s+)?)?
+        (?:
+        (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? 
+        )
+    )
+    )
+)\s+
+(\g&lt;identifier&gt;)\s*
+(?!=&gt;)
+(?=,|;|=|\))</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.using.vein</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>storage.modifier.vein</string>
+          </dict>
+          <key>3</key>
+          <dict>
+            <key>name</key>
+            <string>storage.modifier.vein</string>
+          </dict>
+          <key>4</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.var.vein</string>
+          </dict>
+          <key>5</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#type</string>
+              </dict>
+            </array>
+          </dict>
+          <key>7</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.variable.local.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=;|\))</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>name</key>
+            <string>entity.name.variable.local.vein</string>
+            <key>match</key>
+            <string>@?[_[:alpha:]][_[:alnum:]]*</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#punctuation-comma</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#variable-initializer</string>
+          </dict>
+        </array>
+      </dict>
+      <key>variable-initializer</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&lt;!=|!)(=)(?!=|&gt;)</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.assignment.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=[,\)\];}])</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#ref-modifier</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
           </dict>
         </array>
       </dict>

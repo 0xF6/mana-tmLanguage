@@ -1,3 +1,4 @@
+$schema: "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json"
 scopeName: "source.vein"
 uuid: "acd10959-e561-4695-9d2a-c6133f52a163"
 fileTypes: [
@@ -22,9 +23,6 @@ patterns: [
   }
   {
     include: "#operators"
-  }
-  {
-    include: "#numbers"
   }
   {
     include: "#keywords"
@@ -428,6 +426,9 @@ repository:
       {
         include: "#class-or-struct-members"
       }
+      {
+        include: "#expression"
+      }
     ]
   "constructor-declaration":
     begin: "(new)(?>\\s?+)\\(((?>.)+)?\\)"
@@ -598,6 +599,9 @@ repository:
         include: "#return-statement"
       }
       {
+        include: "#fail-statement"
+      }
+      {
         include: "#break-or-continue-statement"
       }
       {
@@ -637,6 +641,53 @@ repository:
         include: "#punctuation-semicolon"
       }
     ]
+  "for-statement":
+    begin: "(?<!\\.)\\b(for)\\b\\s*(?=\\()"
+    beginCaptures:
+      "1":
+        name: "keyword.control.loop.for.vein"
+    end: "(?<=\\})|(?=;)"
+    patterns: [
+      {
+        begin: "\\("
+        beginCaptures:
+          "0":
+            name: "punctuation.parenthesis.open.vein"
+        end: "\\)"
+        endCaptures:
+          "0":
+            name: "punctuation.parenthesis.close.vein"
+        patterns: [
+          {
+            include: "#local-variable-declaration"
+          }
+          {
+            include: "#expression"
+          }
+          {
+            include: "#punctuation-comma"
+          }
+          {
+            include: "#punctuation-semicolon"
+          }
+        ]
+      }
+      {
+        include: "#statement"
+      }
+    ]
+  "local-declaration":
+    patterns: [
+      {
+        include: "#local-constant-declaration"
+      }
+      {
+        include: "#local-variable-declaration"
+      }
+      {
+        include: "#local-function-declaration"
+      }
+    ]
   "if-statement":
     begin: "(?<!\\.)\\b(if)\\b\\s*(?=\\()"
     beginCaptures:
@@ -668,6 +719,20 @@ repository:
     beginCaptures:
       "1":
         name: "keyword.control.flow.return.vein"
+    end: "(?=;)"
+    patterns: [
+      {
+        include: "#ref-modifier"
+      }
+      {
+        include: "#expression"
+      }
+    ]
+  "fail-statement":
+    begin: "(?<!\\.)\\b(fail)\\b"
+    beginCaptures:
+      "1":
+        name: "keyword.control.flow.fail.vein"
     end: "(?=;)"
     patterns: [
       {
@@ -1227,6 +1292,9 @@ repository:
         include: "#argument"
       }
       {
+        include: "#expression"
+      }
+      {
         include: "#punctuation-comma"
       }
     ]
@@ -1303,6 +1371,72 @@ repository:
       }
       {
         include: "#class-or-struct-members"
+      }
+    ]
+  "local-variable-declaration":
+    begin: '''
+      (?x)
+      (?:
+          (?:(\\busing)\\s+)?
+          (?:(\\bref)\\s+(?:(\\breadonly)\\s+)?)?(\\bauto|let\\b)|
+          (?<type_name>
+          (?:
+              (?:ref\\s+(?:readonly\\s+)?)?
+              (?:
+              (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)? 
+              )
+          )
+          )
+      )\\s+
+      (\\g<identifier>)\\s*
+      (?!=>)
+      (?=,|;|=|\\))
+    '''
+    beginCaptures:
+      "1":
+        name: "keyword.other.using.vein"
+      "2":
+        name: "storage.modifier.vein"
+      "3":
+        name: "storage.modifier.vein"
+      "4":
+        name: "keyword.other.var.vein"
+      "5":
+        patterns: [
+          {
+            include: "#type"
+          }
+        ]
+      "7":
+        name: "entity.name.variable.local.vein"
+    end: "(?=;|\\))"
+    patterns: [
+      {
+        name: "entity.name.variable.local.vein"
+        match: "@?[_[:alpha:]][_[:alnum:]]*"
+      }
+      {
+        include: "#punctuation-comma"
+      }
+      {
+        include: "#comment"
+      }
+      {
+        include: "#variable-initializer"
+      }
+    ]
+  "variable-initializer":
+    begin: "(?<!=|!)(=)(?!=|>)"
+    beginCaptures:
+      "1":
+        name: "keyword.operator.assignment.vein"
+    end: "(?=[,\\)\\];}])"
+    patterns: [
+      {
+        include: "#ref-modifier"
+      }
+      {
+        include: "#expression"
       }
     ]
   "property-accessors":

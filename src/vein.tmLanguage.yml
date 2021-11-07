@@ -1,3 +1,4 @@
+$schema: "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json"
 scopeName: source.vein
 uuid: acd10959-e561-4695-9d2a-c6133f52a163
 fileTypes: [vein]
@@ -9,7 +10,6 @@ patterns:
     - include: "#inline-class-declaration"
     - include: "#class-declaration"
     - include: "#operators"
-    - include: "#numbers"
     - include: "#keywords"
     - include: "#strings"
     - include: "#interpolated-string"
@@ -226,6 +226,7 @@ repository:
             - include: '#comment'
             - include: '#variable-initializer'
             - include: '#class-or-struct-members'
+            - include: '#expression'
     constructor-declaration:
         begin: '(new)(?>\s?+)\(((?>.)+)?\)'
         beginCaptures:
@@ -329,6 +330,29 @@ repository:
             - include: "#block"
             - include: "#expression"
             - include: "#punctuation-semicolon"
+    for-statement:
+        begin: (?<!\.)\b(for)\b\s*(?=\()
+        beginCaptures:
+            '1': { name: keyword.control.loop.for.vein }
+        end: (?<=\})|(?=;)
+        patterns:
+        - begin: \(
+          beginCaptures:
+            '0': { name: punctuation.parenthesis.open.vein }
+          end: \)
+          endCaptures:
+            '0': { name: punctuation.parenthesis.close.vein }
+          patterns:
+            - include: '#local-variable-declaration'
+            - include: '#expression'
+            - include: '#punctuation-comma'
+            - include: '#punctuation-semicolon'
+        - include: '#statement'
+    local-declaration:
+        patterns:
+            - include: '#local-constant-declaration'
+            - include: '#local-variable-declaration'
+            - include: '#local-function-declaration'
     if-statement:
         begin: '(?<!\.)\b(if)\b\s*(?=\()'
         beginCaptures:
@@ -668,6 +692,7 @@ repository:
                 name: punctuation.parenthesis.close.vein
         patterns:
             - include: "#argument"
+            - include: "#expression"
             - include: "#punctuation-comma"
     operation-argument-list:
         match: ((?<variable_name>[a-zA-Z0-9]+)\s?+\:\s?+(?<type_name>[a-zA-Z0-9]+))(,?)+
@@ -717,6 +742,50 @@ repository:
             - include: '#expression-body'
             - include: '#variable-initializer'
             - include: '#class-or-struct-members'
+
+    local-variable-declaration:
+        begin: |-
+            (?x)
+            (?:
+                (?:(\busing)\s+)?
+                (?:(\bref)\s+(?:(\breadonly)\s+)?)?(\bauto|let\b)|
+                (?<type_name>
+                (?:
+                    (?:ref\s+(?:readonly\s+)?)?
+                    (?:
+                    (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)? 
+                    )
+                )
+                )
+            )\s+
+            (\g<identifier>)\s*
+            (?!=>)
+            (?=,|;|=|\))
+        beginCaptures:
+            '1': { name: keyword.other.using.vein }
+            '2': { name: storage.modifier.vein }
+            '3': { name: storage.modifier.vein }
+            '4': { name: keyword.other.var.vein }
+            '5':
+                patterns:
+                - include: '#type'
+            '7': { name: entity.name.variable.local.vein }
+        end: (?=;|\))
+        patterns:
+        - name: entity.name.variable.local.vein
+          match: '@?[_[:alpha:]][_[:alnum:]]*'
+        - include: '#punctuation-comma'
+        - include: '#comment'
+        - include: '#variable-initializer'
+
+    variable-initializer:
+        begin: (?<!=|!)(=)(?!=|>)
+        beginCaptures:
+            '1': { name: keyword.operator.assignment.vein }
+        end: (?=[,\)\];}])
+        patterns:
+            - include: '#ref-modifier'
+            - include: '#expression'
     property-accessors:
         begin: \{
         beginCaptures:
