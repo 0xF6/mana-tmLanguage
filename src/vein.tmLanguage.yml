@@ -242,6 +242,7 @@ repository:
             - include: "#generic-constraints"
             - include: "#expression-body"
             - include: "#block"
+            - include: "#shortform-expression"
     destructor-declaration:
         begin: '(?<!\.)(delete)(?>\s?+)\(((?>.)+)?\)'
         beginCaptures:
@@ -257,8 +258,9 @@ repository:
             - include: "#generic-constraints"
             - include: "#expression-body"
             - include: "#block"
+            - include: "#shortform-expression"
     method-declaration:
-        begin: (?<identifier>@?[_[:alpha:]][_[:alnum:]]*)(?>\s?+)\(((?>.)+)?\)(?>\s?+)\:(?>\s?+)(@?[_[:alpha:]][_[:alnum:]]*)
+        begin: (?<identifier>@?[_[:alpha:]][_[:alnum:]]*)(?>\s?+)\(((?>.)+)?\)(?>\s?+)\:(?>\s?+)(@?[_[:alpha:]][_[:alnum:]]*)\s?+(\|>)?
         beginCaptures:
             "1":
                 name: entity.name.function.vein
@@ -274,6 +276,17 @@ repository:
             - include: "#generic-constraints"
             - include: "#expression-body"
             - include: "#block"
+            - include: "#shortform-expression"
+    shortform-expression:
+        begin: (\|>)\s?+
+        beginCaptures:
+            "1":
+                name: entity.operator.pipe.vein
+        end: '(?=;)'
+        patterns:
+            - include: "#comment"
+            - include: "#expression"
+
     typdef-declaration:
         begin: (\#typedef)\s+
         beginCaptures:
@@ -729,7 +742,7 @@ repository:
             - include: "#punctuation-comma"
             - include: "#variable-initializer"
     property-declaration:
-        begin: (@?[_[:alpha:]][_[:alnum:]]*)(?>\s?+)\:(?>\s?+)(@?[_[:alpha:]][_[:alnum:]]*)\s*(?=\{|=>|$)
+        begin: (@?[_[:alpha:]][_[:alnum:]]*)(?>\s?+)\:(?>\s?+)(@?[_[:alpha:]][_[:alnum:]]*)\s*(?=\{|=>|\|\>|$)
         beginCaptures:
             "1":
                 name: entity.name.variable.field.vein
@@ -742,6 +755,7 @@ repository:
             - include: '#expression-body'
             - include: '#variable-initializer'
             - include: '#class-or-struct-members'
+            - include: '#expression'
 
     local-variable-declaration:
         begin: |-
