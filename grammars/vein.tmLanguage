@@ -18,6 +18,10 @@
     <array>
       <dict>
         <key>include</key>
+        <string>#global_keywords</string>
+      </dict>
+      <dict>
+        <key>include</key>
         <string>#operation-declaration</string>
       </dict>
       <dict>
@@ -189,6 +193,13 @@
         <string>^\s*((#)\s*(use|space|load|ignore))\b\s*</string>
         <key>name</key>
         <string>meta.preprocessor.vein</string>
+      </dict>
+      <key>global_keywords</key>
+      <dict>
+        <key>match</key>
+        <string>^\s*(self|gc|this)\b\s*</string>
+        <key>name</key>
+        <string>entity.name.type</string>
       </dict>
       <key>operators</key>
       <dict>
@@ -817,7 +828,7 @@
       <key>method-declaration</key>
       <dict>
         <key>begin</key>
-        <string>(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)(?&gt;\s?+)\(((?&gt;.)+)?\)(?&gt;\s?+)\:(?&gt;\s?+)(@?[_[:alpha:]][_[:alnum:]]*)\s?+(\|&gt;)?</string>
+        <string>(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)(?&gt;\s?+)\(((?&gt;.)+)?\)(?&gt;\s?+)\:(?&gt;\s?+)(@?[_[:alpha:]][_[:alnum:]]*)\s?+(\|\&gt;)?</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -851,6 +862,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#global_keywords</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#parenthesized-parameter-list</string>
           </dict>
           <dict>
@@ -867,6 +882,10 @@
           </dict>
           <dict>
             <key>include</key>
+            <string>#invocation-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#shortform-expression</string>
           </dict>
         </array>
@@ -874,7 +893,7 @@
       <key>shortform-expression</key>
       <dict>
         <key>begin</key>
-        <string>(\|&gt;)\s?+</string>
+        <string>(\|&gt;)\s?*</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -890,6 +909,14 @@
           <dict>
             <key>include</key>
             <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#global_keywords</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression-call</string>
           </dict>
           <dict>
             <key>include</key>
@@ -1669,6 +1696,10 @@ U[a-fA-F0-9]{,8} )</string>
           </dict>
           <dict>
             <key>include</key>
+            <string>#global_keywords</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#checked-unchecked-expression</string>
           </dict>
           <dict>
@@ -1769,9 +1800,77 @@ U[a-fA-F0-9]{,8} )</string>
           </dict>
           <dict>
             <key>include</key>
+            <string>#expression-call</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#identifier</string>
           </dict>
         </array>
+      </dict>
+      <key>expression-call</key>
+      <dict>
+        <key>name</key>
+        <string>expression.invocation.vein</string>
+        <key>begin</key>
+        <string>(?x)([_$a-zA-Z][$\w]*)\s*\(</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.function.member</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=;|\))</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#parenthesized-parameter-list</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression-body</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#argument-list-raw</string>
+          </dict>
+        </array>
+      </dict>
+      <key>argument-list-raw</key>
+      <dict>
+        <key>match</key>
+        <string>\,?\s*((?:\w+)+)\s*</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>argument.item.vein</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#argument</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#expression</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#punctuation-comma</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
       </dict>
       <key>identifier</key>
       <dict>
@@ -1992,7 +2091,7 @@ U[a-fA-F0-9]{,8} )</string>
       <key>this-or-base-expression</key>
       <dict>
         <key>match</key>
-        <string>\b(?:(base)|(this))\b</string>
+        <string>\b(?:(base)|(this)|(self))\b</string>
         <key>captures</key>
         <dict>
           <key>1</key>
@@ -2004,6 +2103,11 @@ U[a-fA-F0-9]{,8} )</string>
           <dict>
             <key>name</key>
             <string>keyword.other.this.vein</string>
+          </dict>
+          <key>3</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.type</string>
           </dict>
         </dict>
       </dict>
@@ -2287,6 +2391,10 @@ U[a-fA-F0-9]{,8} )</string>
           </dict>
           <dict>
             <key>include</key>
+            <string>#global_keywords</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#declaration-expression-local</string>
           </dict>
         </array>
@@ -2438,7 +2546,7 @@ U[a-fA-F0-9]{,8} )</string>
           <key>7</key>
           <dict>
             <key>name</key>
-            <string>entity.name.variable.local.vein</string>
+            <string>variable.other.constant.local.vein</string>
           </dict>
         </dict>
         <key>end</key>
@@ -2446,8 +2554,12 @@ U[a-fA-F0-9]{,8} )</string>
         <key>patterns</key>
         <array>
           <dict>
+            <key>include</key>
+            <string>#global_keywords</string>
+          </dict>
+          <dict>
             <key>name</key>
-            <string>entity.name.variable.local.vein</string>
+            <string>variable.other.constant.local.vein</string>
             <key>match</key>
             <string>@?[_[:alpha:]][_[:alnum:]]*</string>
           </dict>

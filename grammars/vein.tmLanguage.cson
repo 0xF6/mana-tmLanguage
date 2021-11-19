@@ -7,6 +7,9 @@ fileTypes: [
 name: "Vein Language"
 patterns: [
   {
+    include: "#global_keywords"
+  }
+  {
     include: "#operation-declaration"
   }
   {
@@ -112,6 +115,9 @@ repository:
   preprocessor:
     match: "^\\s*((#)\\s*(use|space|load|ignore))\\b\\s*"
     name: "meta.preprocessor.vein"
+  global_keywords:
+    match: "^\\s*(self|gc|this)\\b\\s*"
+    name: "entity.name.type"
   operators:
     patterns: [
       {
@@ -495,7 +501,7 @@ repository:
       }
     ]
   "method-declaration":
-    begin: "(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)(?>\\s?+)\\(((?>.)+)?\\)(?>\\s?+)\\:(?>\\s?+)(@?[_[:alpha:]][_[:alnum:]]*)\\s?+(\\|>)?"
+    begin: "(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)(?>\\s?+)\\(((?>.)+)?\\)(?>\\s?+)\\:(?>\\s?+)(@?[_[:alpha:]][_[:alnum:]]*)\\s?+(\\|\\>)?"
     beginCaptures:
       "1":
         name: "entity.name.function.vein"
@@ -513,6 +519,9 @@ repository:
         include: "#comment"
       }
       {
+        include: "#global_keywords"
+      }
+      {
         include: "#parenthesized-parameter-list"
       }
       {
@@ -525,11 +534,14 @@ repository:
         include: "#block"
       }
       {
+        include: "#invocation-expression"
+      }
+      {
         include: "#shortform-expression"
       }
     ]
   "shortform-expression":
-    begin: "(\\|>)\\s?+"
+    begin: "(\\|>)\\s?*"
     beginCaptures:
       "1":
         name: "entity.operator.pipe.vein"
@@ -537,6 +549,12 @@ repository:
     patterns: [
       {
         include: "#comment"
+      }
+      {
+        include: "#global_keywords"
+      }
+      {
+        include: "#expression-call"
       }
       {
         include: "#expression"
@@ -974,6 +992,9 @@ repository:
         include: "#comment"
       }
       {
+        include: "#global_keywords"
+      }
+      {
         include: "#checked-unchecked-expression"
       }
       {
@@ -1049,9 +1070,49 @@ repository:
         include: "#initializer-expression"
       }
       {
+        include: "#expression-call"
+      }
+      {
         include: "#identifier"
       }
     ]
+  "expression-call":
+    name: "expression.invocation.vein"
+    begin: "(?x)([_$a-zA-Z][$\\w]*)\\s*\\("
+    beginCaptures:
+      "1":
+        name: "entity.name.function.member"
+    end: "(?=;|\\))"
+    patterns: [
+      {
+        include: "#comment"
+      }
+      {
+        include: "#parenthesized-parameter-list"
+      }
+      {
+        include: "#expression-body"
+      }
+      {
+        include: "#argument-list-raw"
+      }
+    ]
+  "argument-list-raw":
+    match: "\\,?\\s*((?:\\w+)+)\\s*"
+    captures:
+      "1":
+        name: "argument.item.vein"
+        patterns: [
+          {
+            include: "#argument"
+          }
+          {
+            include: "#expression"
+          }
+          {
+            include: "#punctuation-comma"
+          }
+        ]
   identifier:
     name: "variable.other.readwrite.vein"
     match: "@?[_[:alpha:]][_[:alnum:]]*"
@@ -1174,12 +1235,14 @@ repository:
       }
     ]
   "this-or-base-expression":
-    match: "\\b(?:(base)|(this))\\b"
+    match: "\\b(?:(base)|(this)|(self))\\b"
     captures:
       "1":
         name: "keyword.other.base.vein"
       "2":
         name: "keyword.other.this.vein"
+      "3":
+        name: "entity.name.type"
   type:
     name: "meta.type.vein"
     patterns: [
@@ -1342,6 +1405,9 @@ repository:
         match: "\\b(ref|out|in)\\b"
       }
       {
+        include: "#global_keywords"
+      }
+      {
         include: "#declaration-expression-local"
       }
     ]
@@ -1434,11 +1500,14 @@ repository:
           }
         ]
       "7":
-        name: "entity.name.variable.local.vein"
+        name: "variable.other.constant.local.vein"
     end: "(?=;|\\))"
     patterns: [
       {
-        name: "entity.name.variable.local.vein"
+        include: "#global_keywords"
+      }
+      {
+        name: "variable.other.constant.local.vein"
         match: "@?[_[:alpha:]][_[:alnum:]]*"
       }
       {
