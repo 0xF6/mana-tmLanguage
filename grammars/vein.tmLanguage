@@ -299,7 +299,7 @@
             <key>name</key>
             <string>storage.modifier</string>
             <key>match</key>
-            <string>\b(gc|override|contract|native|virtual|forwarded|getter|setter|public|special|protected|internal|private|static|readonly|const|extern|auto|extensions)\b</string>
+            <string>\b(gc|override|contract|native|virtual|abstract|forwarded|getter|setter|public|special|protected|internal|private|static|readonly|const|extern|auto|extensions)\b</string>
           </dict>
         </array>
       </dict>
@@ -893,7 +893,7 @@
       <key>shortform-expression</key>
       <dict>
         <key>begin</key>
-        <string>(\|&gt;)\s?*</string>
+        <string>(\|&gt;)\s?+</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -908,6 +908,18 @@
         <array>
           <dict>
             <key>include</key>
+            <string>#expression-call</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#fail-statement</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#comment</string>
           </dict>
           <dict>
@@ -917,10 +929,6 @@
           <dict>
             <key>include</key>
             <string>#expression-call</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#expression</string>
           </dict>
         </array>
       </dict>
@@ -1829,6 +1837,10 @@ U[a-fA-F0-9]{,8} )</string>
           <dict>
             <key>include</key>
             <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#string-literal</string>
           </dict>
           <dict>
             <key>include</key>

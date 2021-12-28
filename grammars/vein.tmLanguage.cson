@@ -180,7 +180,7 @@ repository:
     patterns: [
       {
         name: "storage.modifier"
-        match: "\\b(gc|override|contract|native|virtual|forwarded|getter|setter|public|special|protected|internal|private|static|readonly|const|extern|auto|extensions)\\b"
+        match: "\\b(gc|override|contract|native|virtual|abstract|forwarded|getter|setter|public|special|protected|internal|private|static|readonly|const|extern|auto|extensions)\\b"
       }
     ]
   "union-declaration":
@@ -541,12 +541,21 @@ repository:
       }
     ]
   "shortform-expression":
-    begin: "(\\|>)\\s?*"
+    begin: "(\\|>)\\s?+"
     beginCaptures:
       "1":
         name: "entity.operator.pipe.vein"
     end: "(?=;)"
     patterns: [
+      {
+        include: "#expression-call"
+      }
+      {
+        include: "#fail-statement"
+      }
+      {
+        include: "#expression"
+      }
       {
         include: "#comment"
       }
@@ -555,9 +564,6 @@ repository:
       }
       {
         include: "#expression-call"
-      }
-      {
-        include: "#expression"
       }
     ]
   "typdef-declaration":
@@ -1086,6 +1092,9 @@ repository:
     patterns: [
       {
         include: "#comment"
+      }
+      {
+        include: "#string-literal"
       }
       {
         include: "#parenthesized-parameter-list"
