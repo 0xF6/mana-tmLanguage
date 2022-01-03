@@ -1277,6 +1277,22 @@ repository:
         include: "#type-array-suffix"
       }
     ]
+  "nameof-expression":
+    begin: "(?<!\\.)\\b(nameof)\\b\\s*(\\()"
+    beginCaptures:
+      "1":
+        name: "keyword.other.nameof.vein"
+      "2":
+        name: "punctuation.parenthesis.open.vein"
+    end: "\\)"
+    endCaptures:
+      "0":
+        name: "punctuation.parenthesis.close.vein"
+    patterns: [
+      {
+        include: "#expression"
+      }
+    ]
   "operation-declaration":
     begin: "\\b(operation)\\s+(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)(?<template_key><(\\S)>)?(\\(.+?\\)?)\\s?+(:)\\s?+(\\S+)(\\s?+(where)\\s?+(\\S+)\\s?+(is)\\s?+(struct|class))?"
     beginCaptures:

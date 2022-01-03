@@ -2159,6 +2159,41 @@ U[a-fA-F0-9]{,8} )</string>
           </dict>
         </array>
       </dict>
+      <key>nameof-expression</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&lt;!\.)\b(nameof)\b\s*(\()</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.nameof.vein</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.parenthesis.open.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>\)</string>
+        <key>endCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.parenthesis.close.vein</string>
+          </dict>
+        </dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
+          </dict>
+        </array>
+      </dict>
       <key>operation-declaration</key>
       <dict>
         <key>begin</key>
