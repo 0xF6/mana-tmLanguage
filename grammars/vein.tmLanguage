@@ -58,10 +58,6 @@
       </dict>
       <dict>
         <key>include</key>
-        <string>#storage-types</string>
-      </dict>
-      <dict>
-        <key>include</key>
         <string>#storage-modifier</string>
       </dict>
       <dict>
@@ -84,9 +80,123 @@
         <key>include</key>
         <string>#literal</string>
       </dict>
+      <dict>
+        <key>include</key>
+        <string>#script-top-level</string>
+      </dict>
     </array>
     <key>repository</key>
     <dict>
+      <key>script-top-level</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#statement</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#method-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#punctuation-semicolon</string>
+          </dict>
+        </array>
+      </dict>
+      <key>generic-constraints</key>
+      <dict>
+        <key>begin</key>
+        <string>(when)\s+(@?[_[:alpha:]][_[:alnum:]]*)\s*(:)</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>storage.modifier.when.vein</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.type.type-parameter.vein</string>
+          </dict>
+          <key>3</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.separator.colon.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=\{|when|;|=&gt;)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>name</key>
+            <string>storage.type.class.vein</string>
+            <key>match</key>
+            <string>\bclass\b</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>storage.type.struct.vein</string>
+            <key>match</key>
+            <string>\bstruct\b</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.constraint.default.vein</string>
+            <key>match</key>
+            <string>\bdefault\b</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.constraint.notnull.vein</string>
+            <key>match</key>
+            <string>\bnotnull\b</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.constraint.unmanaged.vein</string>
+            <key>match</key>
+            <string>\bunmanaged\b</string>
+          </dict>
+          <dict>
+            <key>match</key>
+            <string>(new)\s*(\()\s*(\))</string>
+            <key>captures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>keyword.operator.expression.new.vein</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.open.vein</string>
+              </dict>
+              <key>3</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.close.vein</string>
+              </dict>
+            </dict>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#type</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#punctuation-comma</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#generic-constraints</string>
+          </dict>
+        </array>
+      </dict>
       <key>declarations</key>
       <dict>
         <key>patterns</key>
@@ -281,7 +391,7 @@
             <key>name</key>
             <string>keyword.control.vein</string>
             <key>match</key>
-            <string>(?&lt;!\.)\b(global|char|this|base|using|auto|const|if|else|while|do|body|for|is|in|return|fail)\b</string>
+            <string>(?&lt;!\.)\b(global|await|qnew|qcall|char|this|base|using|auto|const|if|else|while|do|body|for|is|in|return|fail|when)\b</string>
           </dict>
           <dict>
             <key>name</key>
@@ -299,7 +409,7 @@
             <key>name</key>
             <string>storage.modifier</string>
             <key>match</key>
-            <string>\b(gc|override|contract|native|virtual|abstract|forwarded|getter|setter|public|special|protected|internal|private|static|readonly|const|extern|auto|extensions)\b</string>
+            <string>\b(gc|override|contract|async|native|virtual|abstract|forwarded|getter|setter|public|special|protected|internal|private|static|readonly|const|extern|auto|extensions)\b</string>
           </dict>
         </array>
       </dict>
@@ -932,6 +1042,20 @@
           </dict>
         </array>
       </dict>
+      <key>intrusive</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+        </array>
+      </dict>
       <key>typdef-declaration</key>
       <dict>
         <key>begin</key>
@@ -988,6 +1112,297 @@
               <dict>
                 <key>include</key>
                 <string>#punctuation-semicolon</string>
+              </dict>
+            </array>
+          </dict>
+        </array>
+      </dict>
+      <key>expression-body</key>
+      <dict>
+        <key>begin</key>
+        <string>\|&gt;</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.arrow.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=[,\);}])</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#ref-modifier</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
+          </dict>
+        </array>
+      </dict>
+      <key>invocation-expression</key>
+      <dict>
+        <key>begin</key>
+        <string>(?x)
+(?:
+    (?:(\?)\s*)?   # preceding null-conditional operator?
+    (\.)\s*|       # preceding dot?
+    (-&gt;)\s*        # preceding pointer arrow?
+)?
+(@?[_[:alpha:]][_[:alnum:]]*)\s*   # method name
+(
+    &lt;
+    (?&lt;type_args&gt;
+        [^&lt;&gt;()]++|
+        &lt;\g&lt;type_args&gt;*+&gt;|
+        \(\g&lt;type_args&gt;*+\)
+    )*+
+    &gt;\s*
+)?      # type arguments
+(?=\()  # open paren of argument list</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.null-conditional.vein</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.accessor.vein</string>
+          </dict>
+          <key>3</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.accessor.pointer.vein</string>
+          </dict>
+          <key>4</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.function.vein</string>
+          </dict>
+          <key>5</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#type-arguments</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\))</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#argument-list</string>
+          </dict>
+        </array>
+      </dict>
+      <key>anonymous-method-expression</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>begin</key>
+            <string>(?x)
+((?:\b(?:async|static)\b\s*)*)
+(?:
+  (@?[_[:alpha:]][_[:alnum:]]*)\b|
+  (\()
+    (?&lt;tuple&gt;(?:[^()]|\(\g&lt;tuple&gt;\))*)
+  (\))
+)\s*
+(\|&gt;)</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>match</key>
+                    <string>async|static</string>
+                    <key>name</key>
+                    <string>storage.modifier.$0.vein</string>
+                  </dict>
+                </array>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>entity.name.variable.parameter.vein</string>
+              </dict>
+              <key>3</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.open.vein</string>
+              </dict>
+              <key>4</key>
+              <dict>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>include</key>
+                    <string>#comment</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#explicit-anonymous-function-parameter</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#implicit-anonymous-function-parameter</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#default-argument</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#punctuation-comma</string>
+                  </dict>
+                </array>
+              </dict>
+              <key>5</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.close.vein</string>
+              </dict>
+              <key>6</key>
+              <dict>
+                <key>name</key>
+                <string>keyword.operator.arrow.vein</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>(?=[,;)}])</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#intrusive</string>
+              </dict>
+              <dict>
+                <key>begin</key>
+                <string>(?={)</string>
+                <key>end</key>
+                <string>(?=[,;)}])</string>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>include</key>
+                    <string>#block</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#intrusive</string>
+                  </dict>
+                </array>
+              </dict>
+              <dict>
+                <key>begin</key>
+                <string>\b(ref)\b|(?=\S)</string>
+                <key>beginCaptures</key>
+                <dict>
+                  <key>1</key>
+                  <dict>
+                    <key>name</key>
+                    <string>storage.modifier.ref.vein</string>
+                  </dict>
+                </dict>
+                <key>end</key>
+                <string>(?=[,;)}])</string>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>include</key>
+                    <string>#expression</string>
+                  </dict>
+                </array>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>begin</key>
+            <string>(?x)
+((?:\b(?:async|static)\b\s*)*)
+\b(delegate)\b\s*</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>match</key>
+                    <string>async|static</string>
+                    <key>name</key>
+                    <string>storage.modifier.$0.vein</string>
+                  </dict>
+                </array>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>storage.type.delegate.vein</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>(?&lt;=})|(?=[,;)}])</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#intrusive</string>
+              </dict>
+              <dict>
+                <key>begin</key>
+                <string>\(</string>
+                <key>beginCaptures</key>
+                <dict>
+                  <key>0</key>
+                  <dict>
+                    <key>name</key>
+                    <string>punctuation.parenthesis.open.vein</string>
+                  </dict>
+                </dict>
+                <key>end</key>
+                <string>\)</string>
+                <key>endCaptures</key>
+                <dict>
+                  <key>0</key>
+                  <dict>
+                    <key>name</key>
+                    <string>punctuation.parenthesis.close.cs</string>
+                  </dict>
+                </dict>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>include</key>
+                    <string>#intrusive</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#explicit-anonymous-function-parameter</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#punctuation-comma</string>
+                  </dict>
+                </array>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#block</string>
               </dict>
             </array>
           </dict>
@@ -1125,6 +1540,57 @@
           </dict>
         </array>
       </dict>
+      <key>while-statement</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&lt;!\.)\b(while)\b\s*(?=\()</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.loop.while.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\})|(?=;)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>begin</key>
+            <string>\(</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.open.vein</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>\)</string>
+            <key>endCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.close.vein</string>
+              </dict>
+            </dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#expression</string>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#statement</string>
+          </dict>
+        </array>
+      </dict>
       <key>for-statement</key>
       <dict>
         <key>begin</key>
@@ -1188,6 +1654,116 @@
           </dict>
         </array>
       </dict>
+      <key>break-or-continue-statement</key>
+      <dict>
+        <key>match</key>
+        <string>(?&lt;!\.)\b(break|continue)\b</string>
+        <key>name</key>
+        <string>keyword.control.flow.$1.vein</string>
+      </dict>
+      <key>yield-statement</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#yield-return-statement</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#yield-break-statement</string>
+          </dict>
+        </array>
+      </dict>
+      <key>yield-return-statement</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&lt;!\.)\b(yield)\b\s*\b(return)\b</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.flow.yield.vein</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.flow.return.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=[;}])</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
+          </dict>
+        </array>
+      </dict>
+      <key>await-statement</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&lt;!\.\s*)\b(await)\b</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.expression.await.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=})|(?=;|})</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#foreach-statement</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#using-statement</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
+          </dict>
+        </array>
+      </dict>
+      <key>await-expression</key>
+      <dict>
+        <key>name</key>
+        <string>keyword.operator.expression.await.vein</string>
+        <key>match</key>
+        <string>(?&lt;!\.\s*)\b(await)\b</string>
+      </dict>
+      <key>qnew-expression</key>
+      <dict>
+        <key>name</key>
+        <string>keyword.operator.expression.qnew.vein</string>
+        <key>match</key>
+        <string>(?&lt;!\.\s*)\b(qnew)\b</string>
+      </dict>
+      <key>yield-break-statement</key>
+      <dict>
+        <key>match</key>
+        <string>(?&lt;!\.)\b(yield)\b\s*\b(break)\b</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.flow.yield.vein</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.flow.break.vein</string>
+          </dict>
+        </dict>
+      </dict>
       <key>local-declaration</key>
       <dict>
         <key>patterns</key>
@@ -1203,6 +1779,215 @@
           <dict>
             <key>include</key>
             <string>#local-function-declaration</string>
+          </dict>
+        </array>
+      </dict>
+      <key>try-statement</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#try-block</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#catch-clause</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#finally-clause</string>
+          </dict>
+        </array>
+      </dict>
+      <key>try-block</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&lt;!\.)\b(try)\b</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.exception.try.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\})</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#block</string>
+          </dict>
+        </array>
+      </dict>
+      <key>finally-clause</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&lt;!\.)\b(finally)\b</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.exception.finally.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\})</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#block</string>
+          </dict>
+        </array>
+      </dict>
+      <key>catch-clause</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&lt;!\.)\b(catch)\b</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.exception.catch.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\})</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>begin</key>
+            <string>\(</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.open.vein</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>\)</string>
+            <key>endCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.parenthesis.close.vein</string>
+              </dict>
+            </dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>match</key>
+                <string>(?x)
+(?&lt;type_name&gt;
+  (?:
+    (?:
+      (?:(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)\s*\:\:\s*)?
+      (?&lt;name_and_type_args&gt;
+        \g&lt;identifier&gt;\s*
+        (?&lt;type_args&gt;\s*&lt;(?:[^&lt;&gt;]|\g&lt;type_args&gt;)+&gt;\s*)?
+      )
+      (?:\s*\.\s*\g&lt;name_and_type_args&gt;)* |
+      (?&lt;tuple&gt;\s*\((?:[^\(\)]|\g&lt;tuple&gt;)+\))
+    )
+    (?:\s*\?\s*)?
+    (?:\s*
+      \[
+        (?:\s*,\s*)*
+      \]
+      \s*
+      (?:\?)?
+      \s*
+    )*
+  )
+)\s*
+(?:(\g&lt;identifier&gt;)\b)?</string>
+                <key>captures</key>
+                <dict>
+                  <key>1</key>
+                  <dict>
+                    <key>patterns</key>
+                    <array>
+                      <dict>
+                        <key>include</key>
+                        <string>#type</string>
+                      </dict>
+                    </array>
+                  </dict>
+                  <key>6</key>
+                  <dict>
+                    <key>name</key>
+                    <string>entity.name.variable.local.vein</string>
+                  </dict>
+                </dict>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#when-clause</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#block</string>
+          </dict>
+        </array>
+      </dict>
+      <key>when-clause</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&lt;!\.)\b(when)\b\s*(\()</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.exception.when.vein</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.parenthesis.open.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>\)</string>
+        <key>endCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.parenthesis.close.vein</string>
+          </dict>
+        </dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
           </dict>
         </array>
       </dict>
@@ -1251,6 +2036,28 @@
               </dict>
             </array>
           </dict>
+          <dict>
+            <key>include</key>
+            <string>#statement</string>
+          </dict>
+        </array>
+      </dict>
+      <key>else-part</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&lt;!\.)\b(else)\b</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.conditional.else.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=})|(?=;)</string>
+        <key>patterns</key>
+        <array>
           <dict>
             <key>include</key>
             <string>#statement</string>
@@ -1720,7 +2527,7 @@ U[a-fA-F0-9]{,8} )</string>
           </dict>
           <dict>
             <key>include</key>
-            <string>#throw-expression</string>
+            <string>#fail-expression</string>
           </dict>
           <dict>
             <key>include</key>
@@ -1745,6 +2552,10 @@ U[a-fA-F0-9]{,8} )</string>
           <dict>
             <key>include</key>
             <string>#await-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#qnew-expression</string>
           </dict>
           <dict>
             <key>include</key>
@@ -1890,6 +2701,19 @@ U[a-fA-F0-9]{,8} )</string>
         <string>variable.other.readwrite.vein</string>
         <key>match</key>
         <string>@?[_[:alpha:]][_[:alnum:]]*</string>
+      </dict>
+      <key>fail-expression</key>
+      <dict>
+        <key>match</key>
+        <string>\b(fail)\b</string>
+        <key>captures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.control.flow.fail.vein</string>
+          </dict>
+        </dict>
       </dict>
       <key>literal</key>
       <dict>
@@ -2387,6 +3211,72 @@ U[a-fA-F0-9]{,8} )</string>
           <dict>
             <key>include</key>
             <string>#punctuation-comma</string>
+          </dict>
+        </array>
+      </dict>
+      <key>expression-operators</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.bitwise.shift.vein</string>
+            <key>match</key>
+            <string>&lt;&lt;|&gt;&gt;&gt;?</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.comparison.vein</string>
+            <key>match</key>
+            <string>==|!=</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.relational.vein</string>
+            <key>match</key>
+            <string>&lt;=|&gt;=|&lt;|&gt;</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.logical.vein</string>
+            <key>match</key>
+            <string>\!|&amp;&amp;|\|\|</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.bitwise.vein</string>
+            <key>match</key>
+            <string>\&amp;|~|\^|\|</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.decrement.vein</string>
+            <key>match</key>
+            <string>--</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.increment.vein</string>
+            <key>match</key>
+            <string>\+\+</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.arithmetic.vein</string>
+            <key>match</key>
+            <string>\+|-(?!&gt;)|\*|/|%</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.null-coalescing.vein</string>
+            <key>match</key>
+            <string>\?\?</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.range.vein</string>
+            <key>match</key>
+            <string>\.\.</string>
           </dict>
         </array>
       </dict>

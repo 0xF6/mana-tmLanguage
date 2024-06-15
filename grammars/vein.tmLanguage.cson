@@ -37,9 +37,6 @@ patterns: [
     include: "#interpolated-string"
   }
   {
-    include: "#storage-types"
-  }
-  {
     include: "#storage-modifier"
   }
   {
@@ -57,8 +54,74 @@ patterns: [
   {
     include: "#literal"
   }
+  {
+    include: "#script-top-level"
+  }
 ]
 repository:
+  "script-top-level":
+    patterns: [
+      {
+        include: "#statement"
+      }
+      {
+        include: "#method-declaration"
+      }
+      {
+        include: "#punctuation-semicolon"
+      }
+    ]
+  "generic-constraints":
+    begin: "(when)\\s+(@?[_[:alpha:]][_[:alnum:]]*)\\s*(:)"
+    beginCaptures:
+      "1":
+        name: "storage.modifier.when.vein"
+      "2":
+        name: "entity.name.type.type-parameter.vein"
+      "3":
+        name: "punctuation.separator.colon.vein"
+    end: "(?=\\{|when|;|=>)"
+    patterns: [
+      {
+        name: "storage.type.class.vein"
+        match: "\\bclass\\b"
+      }
+      {
+        name: "storage.type.struct.vein"
+        match: "\\bstruct\\b"
+      }
+      {
+        name: "keyword.other.constraint.default.vein"
+        match: "\\bdefault\\b"
+      }
+      {
+        name: "keyword.other.constraint.notnull.vein"
+        match: "\\bnotnull\\b"
+      }
+      {
+        name: "keyword.other.constraint.unmanaged.vein"
+        match: "\\bunmanaged\\b"
+      }
+      {
+        match: "(new)\\s*(\\()\\s*(\\))"
+        captures:
+          "1":
+            name: "keyword.operator.expression.new.vein"
+          "2":
+            name: "punctuation.parenthesis.open.vein"
+          "3":
+            name: "punctuation.parenthesis.close.vein"
+      }
+      {
+        include: "#type"
+      }
+      {
+        include: "#punctuation-comma"
+      }
+      {
+        include: "#generic-constraints"
+      }
+    ]
   declarations:
     patterns: [
       {
@@ -169,7 +232,7 @@ repository:
     patterns: [
       {
         name: "keyword.control.vein"
-        match: "(?<!\\.)\\b(global|char|this|base|using|auto|const|if|else|while|do|body|for|is|in|return|fail)\\b"
+        match: "(?<!\\.)\\b(global|await|qnew|qcall|char|this|base|using|auto|const|if|else|while|do|body|for|is|in|return|fail|when)\\b"
       }
       {
         name: "keyword.control.core.vein"
@@ -180,7 +243,7 @@ repository:
     patterns: [
       {
         name: "storage.modifier"
-        match: "\\b(gc|override|contract|native|virtual|abstract|forwarded|getter|setter|public|special|protected|internal|private|static|readonly|const|extern|auto|extensions)\\b"
+        match: "\\b(gc|override|contract|async|native|virtual|abstract|forwarded|getter|setter|public|special|protected|internal|private|static|readonly|const|extern|auto|extensions)\\b"
       }
     ]
   "union-declaration":
@@ -566,6 +629,15 @@ repository:
         include: "#expression-call"
       }
     ]
+  intrusive:
+    patterns: [
+      {
+        include: "#preprocessor"
+      }
+      {
+        include: "#comment"
+      }
+    ]
   "typdef-declaration":
     begin: "(\\#typedef)\\s+"
     beginCaptures:
@@ -595,6 +667,188 @@ repository:
         patterns: [
           {
             include: "#punctuation-semicolon"
+          }
+        ]
+      }
+    ]
+  "expression-body":
+    begin: "\\|>"
+    beginCaptures:
+      "0":
+        name: "keyword.operator.arrow.vein"
+    end: "(?=[,\\);}])"
+    patterns: [
+      {
+        include: "#ref-modifier"
+      }
+      {
+        include: "#expression"
+      }
+    ]
+  "invocation-expression":
+    begin: '''
+      (?x)
+      (?:
+          (?:(\\?)\\s*)?   # preceding null-conditional operator?
+          (\\.)\\s*|       # preceding dot?
+          (->)\\s*        # preceding pointer arrow?
+      )?
+      (@?[_[:alpha:]][_[:alnum:]]*)\\s*   # method name
+      (
+          <
+          (?<type_args>
+              [^<>()]++|
+              <\\g<type_args>*+>|
+              \\(\\g<type_args>*+\\)
+          )*+
+          >\\s*
+      )?      # type arguments
+      (?=\\()  # open paren of argument list
+    '''
+    beginCaptures:
+      "1":
+        name: "keyword.operator.null-conditional.vein"
+      "2":
+        name: "punctuation.accessor.vein"
+      "3":
+        name: "punctuation.accessor.pointer.vein"
+      "4":
+        name: "entity.name.function.vein"
+      "5":
+        patterns: [
+          {
+            include: "#type-arguments"
+          }
+        ]
+    end: "(?<=\\))"
+    patterns: [
+      {
+        include: "#argument-list"
+      }
+    ]
+  "anonymous-method-expression":
+    patterns: [
+      {
+        begin: '''
+          (?x)
+          ((?:\\b(?:async|static)\\b\\s*)*)
+          (?:
+            (@?[_[:alpha:]][_[:alnum:]]*)\\b|
+            (\\()
+              (?<tuple>(?:[^()]|\\(\\g<tuple>\\))*)
+            (\\))
+          )\\s*
+          (\\|>)
+        '''
+        beginCaptures:
+          "1":
+            patterns: [
+              {
+                match: "async|static"
+                name: "storage.modifier.$0.vein"
+              }
+            ]
+          "2":
+            name: "entity.name.variable.parameter.vein"
+          "3":
+            name: "punctuation.parenthesis.open.vein"
+          "4":
+            patterns: [
+              {
+                include: "#comment"
+              }
+              {
+                include: "#explicit-anonymous-function-parameter"
+              }
+              {
+                include: "#implicit-anonymous-function-parameter"
+              }
+              {
+                include: "#default-argument"
+              }
+              {
+                include: "#punctuation-comma"
+              }
+            ]
+          "5":
+            name: "punctuation.parenthesis.close.vein"
+          "6":
+            name: "keyword.operator.arrow.vein"
+        end: "(?=[,;)}])"
+        patterns: [
+          {
+            include: "#intrusive"
+          }
+          {
+            begin: "(?={)"
+            end: "(?=[,;)}])"
+            patterns: [
+              {
+                include: "#block"
+              }
+              {
+                include: "#intrusive"
+              }
+            ]
+          }
+          {
+            begin: "\\b(ref)\\b|(?=\\S)"
+            beginCaptures:
+              "1":
+                name: "storage.modifier.ref.vein"
+            end: "(?=[,;)}])"
+            patterns: [
+              {
+                include: "#expression"
+              }
+            ]
+          }
+        ]
+      }
+      {
+        begin: '''
+          (?x)
+          ((?:\\b(?:async|static)\\b\\s*)*)
+          \\b(delegate)\\b\\s*
+        '''
+        beginCaptures:
+          "1":
+            patterns: [
+              {
+                match: "async|static"
+                name: "storage.modifier.$0.vein"
+              }
+            ]
+          "2":
+            name: "storage.type.delegate.vein"
+        end: "(?<=})|(?=[,;)}])"
+        patterns: [
+          {
+            include: "#intrusive"
+          }
+          {
+            begin: "\\("
+            beginCaptures:
+              "0":
+                name: "punctuation.parenthesis.open.vein"
+            end: "\\)"
+            endCaptures:
+              "0":
+                name: "punctuation.parenthesis.close.cs"
+            patterns: [
+              {
+                include: "#intrusive"
+              }
+              {
+                include: "#explicit-anonymous-function-parameter"
+              }
+              {
+                include: "#punctuation-comma"
+              }
+            ]
+          }
+          {
+            include: "#block"
           }
         ]
       }
@@ -688,6 +942,32 @@ repository:
         include: "#punctuation-semicolon"
       }
     ]
+  "while-statement":
+    begin: "(?<!\\.)\\b(while)\\b\\s*(?=\\()"
+    beginCaptures:
+      "1":
+        name: "keyword.control.loop.while.vein"
+    end: "(?<=\\})|(?=;)"
+    patterns: [
+      {
+        begin: "\\("
+        beginCaptures:
+          "0":
+            name: "punctuation.parenthesis.open.vein"
+        end: "\\)"
+        endCaptures:
+          "0":
+            name: "punctuation.parenthesis.close.vein"
+        patterns: [
+          {
+            include: "#expression"
+          }
+        ]
+      }
+      {
+        include: "#statement"
+      }
+    ]
   "for-statement":
     begin: "(?<!\\.)\\b(for)\\b\\s*(?=\\()"
     beginCaptures:
@@ -723,6 +1003,61 @@ repository:
         include: "#statement"
       }
     ]
+  "break-or-continue-statement":
+    match: "(?<!\\.)\\b(break|continue)\\b"
+    name: "keyword.control.flow.$1.vein"
+  "yield-statement":
+    patterns: [
+      {
+        include: "#yield-return-statement"
+      }
+      {
+        include: "#yield-break-statement"
+      }
+    ]
+  "yield-return-statement":
+    begin: "(?<!\\.)\\b(yield)\\b\\s*\\b(return)\\b"
+    beginCaptures:
+      "1":
+        name: "keyword.control.flow.yield.vein"
+      "2":
+        name: "keyword.control.flow.return.vein"
+    end: "(?=[;}])"
+    patterns: [
+      {
+        include: "#expression"
+      }
+    ]
+  "await-statement":
+    begin: "(?<!\\.\\s*)\\b(await)\\b"
+    beginCaptures:
+      "1":
+        name: "keyword.operator.expression.await.vein"
+    end: "(?<=})|(?=;|})"
+    patterns: [
+      {
+        include: "#foreach-statement"
+      }
+      {
+        include: "#using-statement"
+      }
+      {
+        include: "#expression"
+      }
+    ]
+  "await-expression":
+    name: "keyword.operator.expression.await.vein"
+    match: "(?<!\\.\\s*)\\b(await)\\b"
+  "qnew-expression":
+    name: "keyword.operator.expression.qnew.vein"
+    match: "(?<!\\.\\s*)\\b(qnew)\\b"
+  "yield-break-statement":
+    match: "(?<!\\.)\\b(yield)\\b\\s*\\b(break)\\b"
+    captures:
+      "1":
+        name: "keyword.control.flow.yield.vein"
+      "2":
+        name: "keyword.control.flow.break.vein"
   "local-declaration":
     patterns: [
       {
@@ -733,6 +1068,131 @@ repository:
       }
       {
         include: "#local-function-declaration"
+      }
+    ]
+  "try-statement":
+    patterns: [
+      {
+        include: "#try-block"
+      }
+      {
+        include: "#catch-clause"
+      }
+      {
+        include: "#finally-clause"
+      }
+    ]
+  "try-block":
+    begin: "(?<!\\.)\\b(try)\\b"
+    beginCaptures:
+      "1":
+        name: "keyword.control.exception.try.vein"
+    end: "(?<=\\})"
+    patterns: [
+      {
+        include: "#comment"
+      }
+      {
+        include: "#block"
+      }
+    ]
+  "finally-clause":
+    begin: "(?<!\\.)\\b(finally)\\b"
+    beginCaptures:
+      "1":
+        name: "keyword.control.exception.finally.vein"
+    end: "(?<=\\})"
+    patterns: [
+      {
+        include: "#comment"
+      }
+      {
+        include: "#block"
+      }
+    ]
+  "catch-clause":
+    begin: "(?<!\\.)\\b(catch)\\b"
+    beginCaptures:
+      "1":
+        name: "keyword.control.exception.catch.vein"
+    end: "(?<=\\})"
+    patterns: [
+      {
+        begin: "\\("
+        beginCaptures:
+          "0":
+            name: "punctuation.parenthesis.open.vein"
+        end: "\\)"
+        endCaptures:
+          "0":
+            name: "punctuation.parenthesis.close.vein"
+        patterns: [
+          {
+            match: '''
+              (?x)
+              (?<type_name>
+                (?:
+                  (?:
+                    (?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*\\:\\:\\s*)?
+                    (?<name_and_type_args>
+                      \\g<identifier>\\s*
+                      (?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?
+                    )
+                    (?:\\s*\\.\\s*\\g<name_and_type_args>)* |
+                    (?<tuple>\\s*\\((?:[^\\(\\)]|\\g<tuple>)+\\))
+                  )
+                  (?:\\s*\\?\\s*)?
+                  (?:\\s*
+                    \\[
+                      (?:\\s*,\\s*)*
+                    \\]
+                    \\s*
+                    (?:\\?)?
+                    \\s*
+                  )*
+                )
+              )\\s*
+              (?:(\\g<identifier>)\\b)?
+            '''
+            captures:
+              "1":
+                patterns: [
+                  {
+                    include: "#type"
+                  }
+                ]
+              "6":
+                name: "entity.name.variable.local.vein"
+          }
+        ]
+      }
+      {
+        include: "#when-clause"
+      }
+      {
+        include: "#comment"
+      }
+      {
+        include: "#block"
+      }
+    ]
+  "when-clause":
+    begin: "(?<!\\.)\\b(when)\\b\\s*(\\()"
+    beginCaptures:
+      "1":
+        name: "keyword.control.exception.when.vein"
+      "2":
+        name: "punctuation.parenthesis.open.vein"
+    end: "\\)"
+    endCaptures:
+      "0":
+        name: "punctuation.parenthesis.close.vein"
+    patterns: [
+      {
+        include: "#expression"
+      }
+      {
+        include: "#comment"
       }
     ]
   "if-statement":
@@ -757,6 +1217,17 @@ repository:
           }
         ]
       }
+      {
+        include: "#statement"
+      }
+    ]
+  "else-part":
+    begin: "(?<!\\.)\\b(else)\\b"
+    beginCaptures:
+      "1":
+        name: "keyword.control.conditional.else.vein"
+    end: "(?<=})|(?=;)"
+    patterns: [
       {
         include: "#statement"
       }
@@ -1010,7 +1481,7 @@ repository:
         include: "#nameof-expression"
       }
       {
-        include: "#throw-expression"
+        include: "#fail-expression"
       }
       {
         include: "#interpolated-string"
@@ -1029,6 +1500,9 @@ repository:
       }
       {
         include: "#await-expression"
+      }
+      {
+        include: "#qnew-expression"
       }
       {
         include: "#query-expression"
@@ -1125,6 +1599,11 @@ repository:
   identifier:
     name: "variable.other.readwrite.vein"
     match: "@?[_[:alpha:]][_[:alnum:]]*"
+  "fail-expression":
+    match: "\\b(fail)\\b"
+    captures:
+      "1":
+        name: "keyword.control.flow.fail.vein"
   literal:
     patterns: [
       {
@@ -1407,6 +1886,49 @@ repository:
       }
       {
         include: "#punctuation-comma"
+      }
+    ]
+  "expression-operators":
+    patterns: [
+      {
+        name: "keyword.operator.bitwise.shift.vein"
+        match: "<<|>>>?"
+      }
+      {
+        name: "keyword.operator.comparison.vein"
+        match: "==|!="
+      }
+      {
+        name: "keyword.operator.relational.vein"
+        match: "<=|>=|<|>"
+      }
+      {
+        name: "keyword.operator.logical.vein"
+        match: "\\!|&&|\\|\\|"
+      }
+      {
+        name: "keyword.operator.bitwise.vein"
+        match: "\\&|~|\\^|\\|"
+      }
+      {
+        name: "keyword.operator.decrement.vein"
+        match: "--"
+      }
+      {
+        name: "keyword.operator.increment.vein"
+        match: "\\+\\+"
+      }
+      {
+        name: "keyword.operator.arithmetic.vein"
+        match: "\\+|-(?!>)|\\*|/|%"
+      }
+      {
+        name: "keyword.operator.null-coalescing.vein"
+        match: "\\?\\?"
+      }
+      {
+        name: "keyword.operator.range.vein"
+        match: "\\.\\."
       }
     ]
   "operation-argument-list":
