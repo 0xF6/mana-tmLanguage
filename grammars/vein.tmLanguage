@@ -1444,11 +1444,51 @@
         <array>
           <dict>
             <key>include</key>
+            <string>#preprocessor</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#comment</string>
           </dict>
           <dict>
             <key>include</key>
             <string>#while-statement</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression-operator-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#context-control-statement</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#context-control-paren-statement</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#labeled-statement</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#object-creation-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#array-creation-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#anonymous-object-creation-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#local-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#block</string>
           </dict>
           <dict>
             <key>include</key>
@@ -1492,10 +1532,6 @@
           </dict>
           <dict>
             <key>include</key>
-            <string>#throw-statement</string>
-          </dict>
-          <dict>
-            <key>include</key>
             <string>#yield-statement</string>
           </dict>
           <dict>
@@ -1525,10 +1561,6 @@
           <dict>
             <key>include</key>
             <string>#local-declaration</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#block</string>
           </dict>
           <dict>
             <key>include</key>
@@ -2503,6 +2535,38 @@ U[a-fA-F0-9]{,8} )</string>
         <array>
           <dict>
             <key>include</key>
+            <string>#expression-operator-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#type-operator-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#default-literal-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#type-builtin</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#language-variable</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#switch-statement-or-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#with-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#assignment-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#preprocessor</string>
           </dict>
           <dict>
@@ -2819,6 +2883,309 @@ U[a-fA-F0-9]{,8} )</string>
             <string>constant.numeric.decimal.vein</string>
             <key>match</key>
             <string>\b(NaN|Infinity)\b</string>
+          </dict>
+        </array>
+      </dict>
+      <key>type-declarations</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#storage-modifier</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#class-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#delegate-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#enum-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#interface-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#struct-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#record-declaration</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#attribute-section</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#punctuation-semicolon</string>
+          </dict>
+        </array>
+      </dict>
+      <key>xml-doc-comment</key>
+      <dict>
+        <key>name</key>
+        <string>xml.doc.comment.vein</string>
+      </dict>
+      <key>ref-modifier</key>
+      <dict>
+        <key>name</key>
+        <string>constant.ref.vein</string>
+      </dict>
+      <key>explicit-anonymous-function-parameter</key>
+      <dict>
+        <key>name</key>
+        <string>constant.explicit-anonymous-function-parameter</string>
+      </dict>
+      <key>language-variable</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>name</key>
+            <string>variable.language.$1.vein</string>
+            <key>match</key>
+            <string>\b(base|this|self)\b</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>variable.other.$1.vein</string>
+            <key>match</key>
+            <string>\b(value)\b</string>
+          </dict>
+        </array>
+      </dict>
+      <key>parenthesized-expression</key>
+      <dict>
+        <key>begin</key>
+        <string>\(</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.parenthesis.open.cs</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>\)</string>
+        <key>endCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.parenthesis.close.cs</string>
+          </dict>
+        </dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
+          </dict>
+        </array>
+      </dict>
+      <key>element-access-expression</key>
+      <dict>
+        <key>begin</key>
+        <string>(?x)
+(?:
+    (?:(\?)\s*)?
+    (\.)\s*|
+    (-&gt;)\s*
+)?
+(?:(@?[_[:alpha:]][_[:alnum:]]*)\s*)? # property name
+(?:(\?)\s*)?
+(?=\[)</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.null-conditional.vein</string>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.accessor.vein</string>
+          </dict>
+          <key>3</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.accessor.pointer.vein</string>
+          </dict>
+          <key>4</key>
+          <dict>
+            <key>name</key>
+            <string>variable.other.object.property.vein</string>
+          </dict>
+          <key>5</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.null-conditional.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\])(?!\s*\[)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#bracketed-argument-list</string>
+          </dict>
+        </array>
+      </dict>
+      <key>member-access-expression</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>match</key>
+            <string>(?x)
+(?:
+    (?:(\?)\s*)?
+    (\.)\s*|
+    (-&gt;)\s*
+)
+(@?[_[:alpha:]][_[:alnum:]]*)\s*
+(?![_[:alnum:]]|\(|(\?)?\[|&lt;)</string>
+            <key>captures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>keyword.operator.null-conditional.vein</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.accessor.vein</string>
+              </dict>
+              <key>3</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.accessor.pointer.vein</string>
+              </dict>
+              <key>4</key>
+              <dict>
+                <key>name</key>
+                <string>variable.other.object.property.vein</string>
+              </dict>
+            </dict>
+          </dict>
+          <dict>
+            <key>match</key>
+            <string>(?x)
+(\.)?\s*
+(@?[_[:alpha:]][_[:alnum:]]*)
+(?&lt;type_params&gt;\s*&lt;([^&lt;&gt;]|\g&lt;type_params&gt;)+&gt;\s*)
+(?=
+    (\s*\?)?
+    \s*\.\s*@?[_[:alpha:]][_[:alnum:]]*
+)</string>
+            <key>captures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.accessor.vein</string>
+              </dict>
+              <key>2</key>
+              <dict>
+                <key>name</key>
+                <string>variable.other.object.vein</string>
+              </dict>
+              <key>3</key>
+              <dict>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>include</key>
+                    <string>#type-arguments</string>
+                  </dict>
+                </array>
+              </dict>
+            </dict>
+          </dict>
+          <dict>
+            <key>match</key>
+            <string>(?x)
+(@?[_[:alpha:]][_[:alnum:]]*)
+(?=
+    \s*(?:(?:\?\s*)?\.|-&gt;)
+    \s*@?[_[:alpha:]][_[:alnum:]]*
+)</string>
+            <key>captures</key>
+            <dict>
+              <key>1</key>
+              <dict>
+                <key>name</key>
+                <string>variable.other.object.vein</string>
+              </dict>
+            </dict>
+          </dict>
+        </array>
+      </dict>
+      <key>conditional-operator</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.conditional.question-mark.vein</string>
+            <key>match</key>
+            <string>\?(?!\?|\s*[.\[])</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.conditional.colon.vein</string>
+            <key>match</key>
+            <string>:</string>
+          </dict>
+        </array>
+      </dict>
+      <key>assignment-expression</key>
+      <dict>
+        <key>begin</key>
+        <string>(?:\*|/|%|\+|-|\?\?|\&amp;|\^|&lt;&lt;|&gt;&gt;&gt;?|\|)?=(?!=|&gt;)</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#assignment-operators</string>
+              </dict>
+            </array>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=[,\)\];}])</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#ref-modifier</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
           </dict>
         </array>
       </dict>
@@ -3413,6 +3780,10 @@ U[a-fA-F0-9]{,8} )</string>
           </dict>
           <dict>
             <key>include</key>
+            <string>#accessor-getter-expression</string>
+          </dict>
+          <dict>
+            <key>include</key>
             <string>#expression-body</string>
           </dict>
           <dict>
@@ -3426,6 +3797,102 @@ U[a-fA-F0-9]{,8} )</string>
           <dict>
             <key>include</key>
             <string>#expression</string>
+          </dict>
+        </array>
+      </dict>
+      <key>accessor-getter-expression</key>
+      <dict>
+        <key>begin</key>
+        <string>\|&gt;</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.operator.arrow.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?=;|\})</string>
+        <key>contentName</key>
+        <string>meta.accessor.getter.vein</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>include</key>
+            <string>#ref-modifier</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#expression</string>
+          </dict>
+        </array>
+      </dict>
+      <key>accessor-setter</key>
+      <dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>begin</key>
+            <string>\{</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.curlybrace.open.vein</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>\}</string>
+            <key>endCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.curlybrace.close.vein</string>
+              </dict>
+            </dict>
+            <key>contentName</key>
+            <string>meta.accessor.setter.vein</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#statement</string>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>begin</key>
+            <string>=&gt;</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>keyword.operator.arrow.vein</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>(?=;|\})</string>
+            <key>contentName</key>
+            <string>meta.accessor.setter.vein</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#ref-modifier</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#expression</string>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#punctuation-semicolon</string>
           </dict>
         </array>
       </dict>
@@ -3854,6 +4321,141 @@ U[a-fA-F0-9]{,8} )</string>
           <dict>
             <key>include</key>
             <string>#argument-list</string>
+          </dict>
+        </array>
+      </dict>
+      <key>enum-declaration</key>
+      <dict>
+        <key>begin</key>
+        <string>(?=\benum\b)</string>
+        <key>end</key>
+        <string>(?&lt;=\})</string>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>begin</key>
+            <string>(?=enum)</string>
+            <key>end</key>
+            <string>(?=\{)</string>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#comment</string>
+              </dict>
+              <dict>
+                <key>match</key>
+                <string>(enum)\s+(@?[_[:alpha:]][_[:alnum:]]*)</string>
+                <key>captures</key>
+                <dict>
+                  <key>1</key>
+                  <dict>
+                    <key>name</key>
+                    <string>storage.type.enum.cs</string>
+                  </dict>
+                  <key>2</key>
+                  <dict>
+                    <key>name</key>
+                    <string>entity.name.type.enum.cs</string>
+                  </dict>
+                </dict>
+              </dict>
+              <dict>
+                <key>begin</key>
+                <string>:</string>
+                <key>beginCaptures</key>
+                <dict>
+                  <key>0</key>
+                  <dict>
+                    <key>name</key>
+                    <string>punctuation.separator.colon.cs</string>
+                  </dict>
+                </dict>
+                <key>end</key>
+                <string>(?=\{)</string>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>include</key>
+                    <string>#type</string>
+                  </dict>
+                </array>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>begin</key>
+            <string>\{</string>
+            <key>beginCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.curlybrace.open.cs</string>
+              </dict>
+            </dict>
+            <key>end</key>
+            <string>\}</string>
+            <key>endCaptures</key>
+            <dict>
+              <key>0</key>
+              <dict>
+                <key>name</key>
+                <string>punctuation.curlybrace.close.cs</string>
+              </dict>
+            </dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#preprocessor</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#comment</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#attribute-section</string>
+              </dict>
+              <dict>
+                <key>include</key>
+                <string>#punctuation-comma</string>
+              </dict>
+              <dict>
+                <key>begin</key>
+                <string>@?[_[:alpha:]][_[:alnum:]]*</string>
+                <key>beginCaptures</key>
+                <dict>
+                  <key>0</key>
+                  <dict>
+                    <key>name</key>
+                    <string>entity.name.variable.enum-member.cs</string>
+                  </dict>
+                </dict>
+                <key>end</key>
+                <string>(?=(,|\}))</string>
+                <key>patterns</key>
+                <array>
+                  <dict>
+                    <key>include</key>
+                    <string>#comment</string>
+                  </dict>
+                  <dict>
+                    <key>include</key>
+                    <string>#variable-initializer</string>
+                  </dict>
+                </array>
+              </dict>
+            </array>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#preprocessor</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
           </dict>
         </array>
       </dict>

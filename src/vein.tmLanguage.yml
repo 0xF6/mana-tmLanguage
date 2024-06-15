@@ -448,7 +448,7 @@ repository:
               0: { name: punctuation.parenthesis.open.vein }
             end: \)
             endCaptures:
-              0: { name: punctuation.parenthesis.close.cs }
+              0: { name: punctuation.parenthesis.close.vein }
             patterns:
             - include: '#intrusive'
             - include: '#explicit-anonymous-function-parameter'
@@ -467,8 +467,18 @@ repository:
             - include: "#statement"
     statement:
         patterns:
-            - include: "#comment"
-            - include: "#while-statement"
+            - include: '#preprocessor'
+            - include: '#comment'
+            - include: '#while-statement'
+            - include: '#expression-operator-expression'
+            - include: '#context-control-statement'
+            - include: '#context-control-paren-statement'
+            - include: '#labeled-statement'
+            - include: '#object-creation-expression'
+            - include: '#array-creation-expression'
+            - include: '#anonymous-object-creation-expression'
+            - include: '#local-declaration'
+            - include: '#block'
             - include: "#do-statement"
             - include: "#for-statement"
             - include: "#foreach-statement"
@@ -479,7 +489,6 @@ repository:
             - include: "#return-statement"
             - include: "#fail-statement"
             - include: "#break-or-continue-statement"
-            - include: "#throw-statement"
             - include: "#yield-statement"
             - include: "#await-statement"
             - include: "#try-statement"
@@ -488,7 +497,6 @@ repository:
             - include: "#using-statement"
             - include: "#labeled-statement"
             - include: "#local-declaration"
-            - include: "#block"
             - include: "#expression"
             - include: "#punctuation-semicolon"
     while-statement:
@@ -811,6 +819,14 @@ repository:
             - include: "#expression"
     expression:
         patterns:
+            - include: '#expression-operator-expression'
+            - include: '#type-operator-expression'
+            - include: '#default-literal-expression'
+            - include: '#type-builtin'
+            - include: '#language-variable'
+            - include: '#switch-statement-or-expression'
+            - include: '#with-expression'
+            - include: '#assignment-expression'
             - include: "#preprocessor"
             - include: "#comment"
             - include: "#global_keywords"
@@ -905,6 +921,116 @@ repository:
               match: '\b[0-9_]+(U|u|L|l|UL|Ul|uL|ul|LU|Lu|lU|lu)?\b'
             - name: constant.numeric.decimal.vein
               match: '\b(NaN|Infinity)\b'
+    type-declarations:
+        patterns:
+            - include: '#preprocessor'
+            - include: '#comment'
+            - include: '#storage-modifier'
+            - include: '#class-declaration'
+            - include: '#delegate-declaration'
+            - include: '#enum-declaration'
+            - include: '#interface-declaration'
+            - include: '#struct-declaration'
+            - include: '#record-declaration'
+            - include: '#attribute-section'
+            - include: '#punctuation-semicolon'
+    xml-doc-comment:
+        name: xml.doc.comment.vein
+    ref-modifier:
+        name: constant.ref.vein
+    explicit-anonymous-function-parameter:
+        name: constant.explicit-anonymous-function-parameter
+    language-variable:
+        patterns:
+        - name: variable.language.$1.vein
+          match: \b(base|this|self)\b
+        - name: variable.other.$1.vein
+          match: \b(value)\b
+    parenthesized-expression:
+        begin: \(
+        beginCaptures:
+            '0': { name: punctuation.parenthesis.open.vein }
+        end: \)
+        endCaptures:
+            '0': { name: punctuation.parenthesis.close.vein }
+        patterns:
+        - include: '#expression'
+    element-access-expression:
+        begin: |-
+            (?x)
+            (?:
+                (?:(\?)\s*)?
+                (\.)\s*|
+                (->)\s*
+            )?
+            (?:(@?[_[:alpha:]][_[:alnum:]]*)\s*)? # property name
+            (?:(\?)\s*)?
+            (?=\[)
+        beginCaptures:
+            '1': { name: keyword.operator.null-conditional.vein }
+            '2': { name: punctuation.accessor.vein }
+            '3': { name: punctuation.accessor.pointer.vein }
+            '4': { name: variable.other.object.property.vein }
+            '5': { name: keyword.operator.null-conditional.vein }
+        end: (?<=\])(?!\s*\[)
+        patterns:
+        - include: '#bracketed-argument-list'
+    member-access-expression:
+        patterns:
+        - match: |-
+                (?x)
+                (?:
+                    (?:(\?)\s*)?
+                    (\.)\s*|
+                    (->)\s*
+                )
+                (@?[_[:alpha:]][_[:alnum:]]*)\s*
+                (?![_[:alnum:]]|\(|(\?)?\[|<)
+          captures:
+              '1': { name: keyword.operator.null-conditional.vein }
+              '2': { name: punctuation.accessor.vein }
+              '3': { name: punctuation.accessor.pointer.vein }
+              '4': { name: variable.other.object.property.vein }
+        - match: |-
+                (?x)
+                (\.)?\s*
+                (@?[_[:alpha:]][_[:alnum:]]*)
+                (?<type_params>\s*<([^<>]|\g<type_params>)+>\s*)
+                (?=
+                    (\s*\?)?
+                    \s*\.\s*@?[_[:alpha:]][_[:alnum:]]*
+                )
+          captures:
+                '1': { name: punctuation.accessor.vein }
+                '2': { name: variable.other.object.vein }
+                '3':
+                    patterns:
+                    - include: '#type-arguments'
+        - match: |-
+                (?x)
+                (@?[_[:alpha:]][_[:alnum:]]*)
+                (?=
+                    \s*(?:(?:\?\s*)?\.|->)
+                    \s*@?[_[:alpha:]][_[:alnum:]]*
+                )
+          captures:
+                '1': { name: variable.other.object.vein }
+    conditional-operator:
+        patterns:
+        - name: keyword.operator.conditional.question-mark.vein
+          match: \?(?!\?|\s*[.\[])
+        - name: keyword.operator.conditional.colon.vein
+          match: ':'
+    assignment-expression:
+        begin: (?:\*|/|%|\+|-|\?\?|\&|\^|<<|>>>?|\|)?=(?!=|>)
+        beginCaptures:
+            0:
+                patterns:
+                - include: '#assignment-operators'
+        end: (?=[,\)\];}])
+        patterns:
+        - include: '#ref-modifier'
+        - include: '#expression'
     char-literal:
         name: string.quoted.single.vein
         begin: "'"
@@ -1103,10 +1229,41 @@ repository:
         patterns:
             - include: '#comment'
             - include: '#property-accessors'
+            - include: '#accessor-getter-expression'
             - include: '#expression-body'
             - include: '#variable-initializer'
             - include: '#class-or-struct-members'
             - include: '#expression'
+    accessor-getter-expression:
+        begin: \|>
+        beginCaptures:
+            '0': { name: keyword.operator.arrow.vein }
+        end: (?=;|\})
+        contentName: meta.accessor.getter.vein
+        patterns:
+        - include: '#ref-modifier'
+        - include: '#expression'
+
+    accessor-setter:
+        patterns:
+          - begin: \{
+            beginCaptures:
+                '0': { name: punctuation.curlybrace.open.vein }
+            end: \}
+            endCaptures:
+                '0': { name: punctuation.curlybrace.close.vein }
+            contentName: meta.accessor.setter.vein
+            patterns:
+            - include: '#statement'
+          - begin: =>
+            beginCaptures:
+                '0': { name: keyword.operator.arrow.vein }
+            end: (?=;|\})
+            contentName: meta.accessor.setter.vein
+            patterns:
+            - include: '#ref-modifier'
+            - include: '#expression'
+          - include: '#punctuation-semicolon'
 
     local-variable-declaration:
         begin: |-
@@ -1256,3 +1413,41 @@ repository:
         end: '(?<=\))'
         patterns:
             - include: "#argument-list"
+    enum-declaration:
+        begin: (?=\benum\b)
+        end: (?<=\})
+        patterns:
+        - begin: (?=enum)
+          end: (?=\{)
+          patterns:
+            - include: '#comment'
+            - match: (enum)\s+(@?[_[:alpha:]][_[:alnum:]]*)
+              captures:
+                    '1': { name: storage.type.enum.vein }
+                    '2': { name: entity.name.type.enum.vein }
+            - begin: ':'
+              beginCaptures:
+                    '0': { name: punctuation.separator.colon.vein }
+              end: (?=\{)
+              patterns:
+                - include: '#type'
+        - begin: \{
+          beginCaptures:
+                '0': { name: punctuation.curlybrace.open.vein }
+          end: \}
+          endCaptures:
+                '0': { name: punctuation.curlybrace.close.vein }
+          patterns:
+            - include: '#preprocessor'
+            - include: '#comment'
+            - include: '#attribute-section'
+            - include: '#punctuation-comma'
+            - begin: '@?[_[:alpha:]][_[:alnum:]]*'
+              beginCaptures:
+                    '0': { name: entity.name.variable.enum-member.vein }
+              end: (?=(,|\}))
+              patterns:
+                - include: '#comment'
+                - include: '#variable-initializer'
+        - include: '#preprocessor'
+        - include: '#comment'

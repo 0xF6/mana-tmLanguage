@@ -4,7 +4,7 @@
 		"If you want to provide a fix or improvement, please create a pull request against the original repository.",
 		"Once accepted there, we are happy to receive an update request."
 	],
-	"version": "https://github.com/vein-lang/tmLanguage/commit/9a2be3192238422b77bdcf960f2d336df4d5d36c",
+	"version": "https://github.com/vein-lang/tmLanguage/commit/b2b8d92856853130bbaef1c67af9f379a1170bac",
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"scopeName": "source.vein",
 	"name": "Vein Language",
@@ -957,10 +957,40 @@
 		"statement": {
 			"patterns": [
 				{
+					"include": "#preprocessor"
+				},
+				{
 					"include": "#comment"
 				},
 				{
 					"include": "#while-statement"
+				},
+				{
+					"include": "#expression-operator-expression"
+				},
+				{
+					"include": "#context-control-statement"
+				},
+				{
+					"include": "#context-control-paren-statement"
+				},
+				{
+					"include": "#labeled-statement"
+				},
+				{
+					"include": "#object-creation-expression"
+				},
+				{
+					"include": "#array-creation-expression"
+				},
+				{
+					"include": "#anonymous-object-creation-expression"
+				},
+				{
+					"include": "#local-declaration"
+				},
+				{
+					"include": "#block"
 				},
 				{
 					"include": "#do-statement"
@@ -993,9 +1023,6 @@
 					"include": "#break-or-continue-statement"
 				},
 				{
-					"include": "#throw-statement"
-				},
-				{
 					"include": "#yield-statement"
 				},
 				{
@@ -1018,9 +1045,6 @@
 				},
 				{
 					"include": "#local-declaration"
-				},
-				{
-					"include": "#block"
 				},
 				{
 					"include": "#expression"
@@ -1636,6 +1660,30 @@
 		"expression": {
 			"patterns": [
 				{
+					"include": "#expression-operator-expression"
+				},
+				{
+					"include": "#type-operator-expression"
+				},
+				{
+					"include": "#default-literal-expression"
+				},
+				{
+					"include": "#type-builtin"
+				},
+				{
+					"include": "#language-variable"
+				},
+				{
+					"include": "#switch-statement-or-expression"
+				},
+				{
+					"include": "#with-expression"
+				},
+				{
+					"include": "#assignment-expression"
+				},
+				{
 					"include": "#preprocessor"
 				},
 				{
@@ -1858,6 +1906,189 @@
 				{
 					"name": "constant.numeric.decimal.vein",
 					"match": "\\b(NaN|Infinity)\\b"
+				}
+			]
+		},
+		"type-declarations": {
+			"patterns": [
+				{
+					"include": "#preprocessor"
+				},
+				{
+					"include": "#comment"
+				},
+				{
+					"include": "#storage-modifier"
+				},
+				{
+					"include": "#class-declaration"
+				},
+				{
+					"include": "#delegate-declaration"
+				},
+				{
+					"include": "#enum-declaration"
+				},
+				{
+					"include": "#interface-declaration"
+				},
+				{
+					"include": "#struct-declaration"
+				},
+				{
+					"include": "#record-declaration"
+				},
+				{
+					"include": "#attribute-section"
+				},
+				{
+					"include": "#punctuation-semicolon"
+				}
+			]
+		},
+		"xml-doc-comment": {
+			"name": "xml.doc.comment.vein"
+		},
+		"ref-modifier": {
+			"name": "constant.ref.vein"
+		},
+		"explicit-anonymous-function-parameter": {
+			"name": "constant.explicit-anonymous-function-parameter"
+		},
+		"language-variable": {
+			"patterns": [
+				{
+					"name": "variable.language.$1.vein",
+					"match": "\\b(base|this|self)\\b"
+				},
+				{
+					"name": "variable.other.$1.vein",
+					"match": "\\b(value)\\b"
+				}
+			]
+		},
+		"parenthesized-expression": {
+			"begin": "\\(",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.parenthesis.open.cs"
+				}
+			},
+			"end": "\\)",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.parenthesis.close.cs"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#expression"
+				}
+			]
+		},
+		"element-access-expression": {
+			"begin": "(?x)\n(?:\n    (?:(\\?)\\s*)?\n    (\\.)\\s*|\n    (->)\\s*\n)?\n(?:(@?[_[:alpha:]][_[:alnum:]]*)\\s*)? # property name\n(?:(\\?)\\s*)?\n(?=\\[)",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.operator.null-conditional.vein"
+				},
+				"2": {
+					"name": "punctuation.accessor.vein"
+				},
+				"3": {
+					"name": "punctuation.accessor.pointer.vein"
+				},
+				"4": {
+					"name": "variable.other.object.property.vein"
+				},
+				"5": {
+					"name": "keyword.operator.null-conditional.vein"
+				}
+			},
+			"end": "(?<=\\])(?!\\s*\\[)",
+			"patterns": [
+				{
+					"include": "#bracketed-argument-list"
+				}
+			]
+		},
+		"member-access-expression": {
+			"patterns": [
+				{
+					"match": "(?x)\n(?:\n    (?:(\\?)\\s*)?\n    (\\.)\\s*|\n    (->)\\s*\n)\n(@?[_[:alpha:]][_[:alnum:]]*)\\s*\n(?![_[:alnum:]]|\\(|(\\?)?\\[|<)",
+					"captures": {
+						"1": {
+							"name": "keyword.operator.null-conditional.vein"
+						},
+						"2": {
+							"name": "punctuation.accessor.vein"
+						},
+						"3": {
+							"name": "punctuation.accessor.pointer.vein"
+						},
+						"4": {
+							"name": "variable.other.object.property.vein"
+						}
+					}
+				},
+				{
+					"match": "(?x)\n(\\.)?\\s*\n(@?[_[:alpha:]][_[:alnum:]]*)\n(?<type_params>\\s*<([^<>]|\\g<type_params>)+>\\s*)\n(?=\n    (\\s*\\?)?\n    \\s*\\.\\s*@?[_[:alpha:]][_[:alnum:]]*\n)",
+					"captures": {
+						"1": {
+							"name": "punctuation.accessor.vein"
+						},
+						"2": {
+							"name": "variable.other.object.vein"
+						},
+						"3": {
+							"patterns": [
+								{
+									"include": "#type-arguments"
+								}
+							]
+						}
+					}
+				},
+				{
+					"match": "(?x)\n(@?[_[:alpha:]][_[:alnum:]]*)\n(?=\n    \\s*(?:(?:\\?\\s*)?\\.|->)\n    \\s*@?[_[:alpha:]][_[:alnum:]]*\n)",
+					"captures": {
+						"1": {
+							"name": "variable.other.object.vein"
+						}
+					}
+				}
+			]
+		},
+		"conditional-operator": {
+			"patterns": [
+				{
+					"name": "keyword.operator.conditional.question-mark.vein",
+					"match": "\\?(?!\\?|\\s*[.\\[])"
+				},
+				{
+					"name": "keyword.operator.conditional.colon.vein",
+					"match": ":"
+				}
+			]
+		},
+		"assignment-expression": {
+			"begin": "(?:\\*|/|%|\\+|-|\\?\\?|\\&|\\^|<<|>>>?|\\|)?=(?!=|>)",
+			"beginCaptures": {
+				"0": {
+					"patterns": [
+						{
+							"include": "#assignment-operators"
+						}
+					]
+				}
+			},
+			"end": "(?=[,\\)\\];}])",
+			"patterns": [
+				{
+					"include": "#ref-modifier"
+				},
+				{
+					"include": "#expression"
 				}
 			]
 		},
@@ -2251,6 +2482,9 @@
 					"include": "#property-accessors"
 				},
 				{
+					"include": "#accessor-getter-expression"
+				},
+				{
 					"include": "#expression-body"
 				},
 				{
@@ -2261,6 +2495,69 @@
 				},
 				{
 					"include": "#expression"
+				}
+			]
+		},
+		"accessor-getter-expression": {
+			"begin": "\\|>",
+			"beginCaptures": {
+				"0": {
+					"name": "keyword.operator.arrow.vein"
+				}
+			},
+			"end": "(?=;|\\})",
+			"contentName": "meta.accessor.getter.vein",
+			"patterns": [
+				{
+					"include": "#ref-modifier"
+				},
+				{
+					"include": "#expression"
+				}
+			]
+		},
+		"accessor-setter": {
+			"patterns": [
+				{
+					"begin": "\\{",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.open.vein"
+						}
+					},
+					"end": "\\}",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.close.vein"
+						}
+					},
+					"contentName": "meta.accessor.setter.vein",
+					"patterns": [
+						{
+							"include": "#statement"
+						}
+					]
+				},
+				{
+					"begin": "=>",
+					"beginCaptures": {
+						"0": {
+							"name": "keyword.operator.arrow.vein"
+						}
+					},
+					"end": "(?=;|\\})",
+					"contentName": "meta.accessor.setter.vein",
+					"patterns": [
+						{
+							"include": "#ref-modifier"
+						},
+						{
+							"include": "#expression"
+						}
+					]
+				},
+				{
+					"include": "#punctuation-semicolon"
 				}
 			]
 		},
@@ -2533,6 +2830,97 @@
 			"patterns": [
 				{
 					"include": "#argument-list"
+				}
+			]
+		},
+		"enum-declaration": {
+			"begin": "(?=\\benum\\b)",
+			"end": "(?<=\\})",
+			"patterns": [
+				{
+					"begin": "(?=enum)",
+					"end": "(?=\\{)",
+					"patterns": [
+						{
+							"include": "#comment"
+						},
+						{
+							"match": "(enum)\\s+(@?[_[:alpha:]][_[:alnum:]]*)",
+							"captures": {
+								"1": {
+									"name": "storage.type.enum.cs"
+								},
+								"2": {
+									"name": "entity.name.type.enum.cs"
+								}
+							}
+						},
+						{
+							"begin": ":",
+							"beginCaptures": {
+								"0": {
+									"name": "punctuation.separator.colon.cs"
+								}
+							},
+							"end": "(?=\\{)",
+							"patterns": [
+								{
+									"include": "#type"
+								}
+							]
+						}
+					]
+				},
+				{
+					"begin": "\\{",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.open.cs"
+						}
+					},
+					"end": "\\}",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.curlybrace.close.cs"
+						}
+					},
+					"patterns": [
+						{
+							"include": "#preprocessor"
+						},
+						{
+							"include": "#comment"
+						},
+						{
+							"include": "#attribute-section"
+						},
+						{
+							"include": "#punctuation-comma"
+						},
+						{
+							"begin": "@?[_[:alpha:]][_[:alnum:]]*",
+							"beginCaptures": {
+								"0": {
+									"name": "entity.name.variable.enum-member.cs"
+								}
+							},
+							"end": "(?=(,|\\}))",
+							"patterns": [
+								{
+									"include": "#comment"
+								},
+								{
+									"include": "#variable-initializer"
+								}
+							]
+						}
+					]
+				},
+				{
+					"include": "#preprocessor"
+				},
+				{
+					"include": "#comment"
 				}
 			]
 		}
