@@ -70,6 +70,18 @@ repository:
       {
         include: "#punctuation-semicolon"
       }
+      {
+        include: "#expression-body"
+      }
+      {
+        include: "#block"
+      }
+      {
+        include: "#invocation-expression"
+      }
+      {
+        include: "#shortform-expression"
+      }
     ]
   "generic-constraints":
     begin: "(when)\\s+(@?[_[:alpha:]][_[:alnum:]]*)\\s*(:)"
@@ -834,7 +846,7 @@ repository:
             end: "\\)"
             endCaptures:
               "0":
-                name: "punctuation.parenthesis.close.cs"
+                name: "punctuation.parenthesis.close.vein"
             patterns: [
               {
                 include: "#intrusive"
@@ -1778,11 +1790,11 @@ repository:
     begin: "\\("
     beginCaptures:
       "0":
-        name: "punctuation.parenthesis.open.cs"
+        name: "punctuation.parenthesis.open.vein"
     end: "\\)"
     endCaptures:
       "0":
-        name: "punctuation.parenthesis.close.cs"
+        name: "punctuation.parenthesis.close.vein"
     patterns: [
       {
         include: "#expression"
@@ -2557,15 +2569,15 @@ repository:
             match: "(enum)\\s+(@?[_[:alpha:]][_[:alnum:]]*)"
             captures:
               "1":
-                name: "storage.type.enum.cs"
+                name: "storage.type.enum.vein"
               "2":
-                name: "entity.name.type.enum.cs"
+                name: "entity.name.type.enum.vein"
           }
           {
             begin: ":"
             beginCaptures:
               "0":
-                name: "punctuation.separator.colon.cs"
+                name: "punctuation.separator.colon.vein"
             end: "(?=\\{)"
             patterns: [
               {
@@ -2579,11 +2591,11 @@ repository:
         begin: "\\{"
         beginCaptures:
           "0":
-            name: "punctuation.curlybrace.open.cs"
+            name: "punctuation.curlybrace.open.vein"
         end: "\\}"
         endCaptures:
           "0":
-            name: "punctuation.curlybrace.close.cs"
+            name: "punctuation.curlybrace.close.vein"
         patterns: [
           {
             include: "#preprocessor"
@@ -2601,7 +2613,7 @@ repository:
             begin: "@?[_[:alpha:]][_[:alnum:]]*"
             beginCaptures:
               "0":
-                name: "entity.name.variable.enum-member.cs"
+                name: "entity.name.variable.enum-member.vein"
             end: "(?=(,|\\}))"
             patterns: [
               {

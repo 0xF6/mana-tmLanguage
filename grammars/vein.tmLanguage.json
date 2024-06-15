@@ -4,7 +4,7 @@
 		"If you want to provide a fix or improvement, please create a pull request against the original repository.",
 		"Once accepted there, we are happy to receive an update request."
 	],
-	"version": "https://github.com/vein-lang/tmLanguage/commit/b2b8d92856853130bbaef1c67af9f379a1170bac",
+	"version": "https://github.com/vein-lang/tmLanguage/commit/ac0caa6e68565530e27b72ffe17e6b3f4d13f803",
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"scopeName": "source.vein",
 	"name": "Vein Language",
@@ -72,6 +72,18 @@
 				},
 				{
 					"include": "#punctuation-semicolon"
+				},
+				{
+					"include": "#expression-body"
+				},
+				{
+					"include": "#block"
+				},
+				{
+					"include": "#invocation-expression"
+				},
+				{
+					"include": "#shortform-expression"
 				}
 			]
 		},
@@ -913,7 +925,7 @@
 							"end": "\\)",
 							"endCaptures": {
 								"0": {
-									"name": "punctuation.parenthesis.close.cs"
+									"name": "punctuation.parenthesis.close.vein"
 								}
 							},
 							"patterns": [
@@ -1971,13 +1983,13 @@
 			"begin": "\\(",
 			"beginCaptures": {
 				"0": {
-					"name": "punctuation.parenthesis.open.cs"
+					"name": "punctuation.parenthesis.open.vein"
 				}
 			},
 			"end": "\\)",
 			"endCaptures": {
 				"0": {
-					"name": "punctuation.parenthesis.close.cs"
+					"name": "punctuation.parenthesis.close.vein"
 				}
 			},
 			"patterns": [
@@ -2848,10 +2860,10 @@
 							"match": "(enum)\\s+(@?[_[:alpha:]][_[:alnum:]]*)",
 							"captures": {
 								"1": {
-									"name": "storage.type.enum.cs"
+									"name": "storage.type.enum.vein"
 								},
 								"2": {
-									"name": "entity.name.type.enum.cs"
+									"name": "entity.name.type.enum.vein"
 								}
 							}
 						},
@@ -2859,7 +2871,7 @@
 							"begin": ":",
 							"beginCaptures": {
 								"0": {
-									"name": "punctuation.separator.colon.cs"
+									"name": "punctuation.separator.colon.vein"
 								}
 							},
 							"end": "(?=\\{)",
@@ -2875,13 +2887,13 @@
 					"begin": "\\{",
 					"beginCaptures": {
 						"0": {
-							"name": "punctuation.curlybrace.open.cs"
+							"name": "punctuation.curlybrace.open.vein"
 						}
 					},
 					"end": "\\}",
 					"endCaptures": {
 						"0": {
-							"name": "punctuation.curlybrace.close.cs"
+							"name": "punctuation.curlybrace.close.vein"
 						}
 					},
 					"patterns": [
@@ -2901,7 +2913,7 @@
 							"begin": "@?[_[:alpha:]][_[:alnum:]]*",
 							"beginCaptures": {
 								"0": {
-									"name": "entity.name.variable.enum-member.cs"
+									"name": "entity.name.variable.enum-member.vein"
 								}
 							},
 							"end": "(?=(,|\\}))",

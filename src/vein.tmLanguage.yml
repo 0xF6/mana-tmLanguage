@@ -27,6 +27,10 @@ repository:
         - include: '#statement'
         - include: '#method-declaration'
         - include: '#punctuation-semicolon'
+        - include: "#expression-body"
+        - include: "#block"
+        - include: "#invocation-expression"
+        - include: "#shortform-expression"
     generic-constraints:
         begin: (when)\s+(@?[_[:alpha:]][_[:alnum:]]*)\s*(:)
         beginCaptures:
