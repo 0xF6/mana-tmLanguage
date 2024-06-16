@@ -4,11 +4,26 @@
 		"If you want to provide a fix or improvement, please create a pull request against the original repository.",
 		"Once accepted there, we are happy to receive an update request."
 	],
-	"version": "https://github.com/vein-lang/tmLanguage/commit/ac0caa6e68565530e27b72ffe17e6b3f4d13f803",
+	"version": "https://github.com/vein-lang/tmLanguage/commit/bf7f4248230ad049ebbb0772feeae4287d9f6886",
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"scopeName": "source.vein",
 	"name": "Vein Language",
 	"patterns": [
+		{
+			"include": "#method-declaration"
+		},
+		{
+			"include": "#expression-body"
+		},
+		{
+			"include": "#invocation-expression"
+		},
+		{
+			"include": "#script-top-level"
+		},
+		{
+			"include": "#type-alias"
+		},
 		{
 			"include": "#global_keywords"
 		},
@@ -56,34 +71,85 @@
 		},
 		{
 			"include": "#literal"
-		},
-		{
-			"include": "#script-top-level"
 		}
 	],
 	"repository": {
-		"script-top-level": {
+		"script-top-level": [
+			{
+				"include": "#punctuation-semicolon"
+			},
+			{
+				"include": "#statement"
+			},
+			{
+				"include": "#block"
+			},
+			{
+				"include": "#shortform-expression"
+			},
+			{
+				"include": "#comment"
+			},
+			{
+				"include": "#property-declaration"
+			},
+			{
+				"include": "#field-declaration"
+			},
+			{
+				"include": "#indexer-declaration"
+			},
+			{
+				"include": "#punctuation-semicolon"
+			},
+			{
+				"include": "#operation-declaration"
+			},
+			{
+				"include": "#union-declaration"
+			},
+			{
+				"include": "#storage-modifier"
+			},
+			{
+				"include": "#constructor-declaration"
+			},
+			{
+				"include": "#destructor-declaration"
+			},
+			{
+				"include": "#attribute-section"
+			}
+		],
+		"atype": {
 			"patterns": [
 				{
-					"include": "#statement"
+					"match": "(@?[_[:alpha:]][_[:alnum:]]*)",
+					"name": "entity.name.type.class.vein"
+				}
+			]
+		},
+		"type-alias": {
+			"begin": "(alias)\\s+",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.other.alias.vein"
+				}
+			},
+			"end": "(?<=\\})|(?=;)",
+			"patterns": [
+				{
+					"include": "#comment"
 				},
 				{
-					"include": "#method-declaration"
+					"name": "entity.name.type.class.vein",
+					"match": "@?[_[:alpha:]][_[:alnum:]]*"
 				},
 				{
-					"include": "#punctuation-semicolon"
+					"include": "#punctuation-accessor"
 				},
 				{
-					"include": "#expression-body"
-				},
-				{
-					"include": "#block"
-				},
-				{
-					"include": "#invocation-expression"
-				},
-				{
-					"include": "#shortform-expression"
+					"include": "#type-anonymous-method-declaration"
 				}
 			]
 		},
@@ -690,6 +756,22 @@
 					"include": "#shortform-expression"
 				}
 			]
+		},
+		"type-anonymous-method-declaration": {
+			"begin": "(?>\\s?+)\\(((?>.)+)?\\)(?>\\s?+)\\:(?>\\s?+)(@?[_[:alpha:]][_[:alnum:]]*)\\s?+(\\|\\>)?",
+			"beginCaptures": {
+				"1": {
+					"patterns": [
+						{
+							"include": "#operation-argument-list"
+						}
+					]
+				},
+				"2": {
+					"name": "entity.name.type"
+				}
+			},
+			"end": "(?<=\\})|(?=;)"
 		},
 		"shortform-expression": {
 			"begin": "(\\|>)\\s?+",

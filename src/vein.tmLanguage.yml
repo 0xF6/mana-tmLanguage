@@ -4,6 +4,11 @@ uuid: acd10959-e561-4695-9d2a-c6133f52a163
 fileTypes: [vein]
 name: "Vein Language"
 patterns:
+    - include: "#method-declaration"
+    - include: "#expression-body"
+    - include: "#invocation-expression"
+    - include: '#script-top-level'
+    - include: "#type-alias"
     - include: "#global_keywords"
     - include: "#operation-declaration"
     - include: "#comment"
@@ -20,17 +25,42 @@ patterns:
     - include: "#typdef-declaration"
     - include: "#types"
     - include: "#literal"
-    - include: '#script-top-level'
 repository:
     script-top-level:
-        patterns:
-        - include: '#statement'
-        - include: '#method-declaration'
         - include: '#punctuation-semicolon'
-        - include: "#expression-body"
+        - include: '#statement'
+        
         - include: "#block"
-        - include: "#invocation-expression"
+        
         - include: "#shortform-expression"
+        - include: "#comment"
+        - include: "#property-declaration"
+        - include: "#field-declaration"
+        - include: "#indexer-declaration"
+        - include: "#punctuation-semicolon"
+        - include: "#operation-declaration"
+        - include: "#union-declaration"
+        - include: "#storage-modifier"
+        - include: "#constructor-declaration"
+        - include: "#destructor-declaration"
+        
+        - include: "#attribute-section"
+    atype:
+        patterns:
+            - match: (@?[_[:alpha:]][_[:alnum:]]*)
+              name: entity.name.type.class.vein
+    type-alias:
+        begin: (alias)\s+
+        beginCaptures:
+            "1":
+                name: keyword.other.alias.vein
+        end: '(?<=\})|(?=;)'
+        patterns:
+            - include: "#comment"
+            - name: entity.name.type.class.vein
+              match: "@?[_[:alpha:]][_[:alnum:]]*"
+            - include: "#punctuation-accessor"
+            - include: "#type-anonymous-method-declaration"
     generic-constraints:
         begin: (when)\s+(@?[_[:alpha:]][_[:alnum:]]*)\s*(:)
         beginCaptures:
@@ -318,6 +348,15 @@ repository:
             - include: "#block"
             - include: "#invocation-expression"
             - include: "#shortform-expression"
+    type-anonymous-method-declaration:
+        begin: (?>\s?+)\(((?>.)+)?\)(?>\s?+)\:(?>\s?+)(@?[_[:alpha:]][_[:alnum:]]*)\s?+(\|\>)?
+        beginCaptures:
+            "1":
+                patterns:
+                    - include: "#operation-argument-list"
+            "2":
+                name: entity.name.type
+        end: '(?<=\})|(?=;)'
     shortform-expression:
         begin: (\|>)\s?+
         beginCaptures:

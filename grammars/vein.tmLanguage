@@ -18,6 +18,26 @@
     <array>
       <dict>
         <key>include</key>
+        <string>#method-declaration</string>
+      </dict>
+      <dict>
+        <key>include</key>
+        <string>#expression-body</string>
+      </dict>
+      <dict>
+        <key>include</key>
+        <string>#invocation-expression</string>
+      </dict>
+      <dict>
+        <key>include</key>
+        <string>#script-top-level</string>
+      </dict>
+      <dict>
+        <key>include</key>
+        <string>#type-alias</string>
+      </dict>
+      <dict>
+        <key>include</key>
         <string>#global_keywords</string>
       </dict>
       <dict>
@@ -80,44 +100,117 @@
         <key>include</key>
         <string>#literal</string>
       </dict>
-      <dict>
-        <key>include</key>
-        <string>#script-top-level</string>
-      </dict>
     </array>
     <key>repository</key>
     <dict>
       <key>script-top-level</key>
+      <array>
+        <dict>
+          <key>include</key>
+          <string>#punctuation-semicolon</string>
+        </dict>
+        <dict>
+          <key>include</key>
+          <string>#statement</string>
+        </dict>
+        <dict>
+          <key>include</key>
+          <string>#block</string>
+        </dict>
+        <dict>
+          <key>include</key>
+          <string>#shortform-expression</string>
+        </dict>
+        <dict>
+          <key>include</key>
+          <string>#comment</string>
+        </dict>
+        <dict>
+          <key>include</key>
+          <string>#property-declaration</string>
+        </dict>
+        <dict>
+          <key>include</key>
+          <string>#field-declaration</string>
+        </dict>
+        <dict>
+          <key>include</key>
+          <string>#indexer-declaration</string>
+        </dict>
+        <dict>
+          <key>include</key>
+          <string>#punctuation-semicolon</string>
+        </dict>
+        <dict>
+          <key>include</key>
+          <string>#operation-declaration</string>
+        </dict>
+        <dict>
+          <key>include</key>
+          <string>#union-declaration</string>
+        </dict>
+        <dict>
+          <key>include</key>
+          <string>#storage-modifier</string>
+        </dict>
+        <dict>
+          <key>include</key>
+          <string>#constructor-declaration</string>
+        </dict>
+        <dict>
+          <key>include</key>
+          <string>#destructor-declaration</string>
+        </dict>
+        <dict>
+          <key>include</key>
+          <string>#attribute-section</string>
+        </dict>
+      </array>
+      <key>atype</key>
       <dict>
         <key>patterns</key>
         <array>
           <dict>
+            <key>match</key>
+            <string>(@?[_[:alpha:]][_[:alnum:]]*)</string>
+            <key>name</key>
+            <string>entity.name.type.class.vein</string>
+          </dict>
+        </array>
+      </dict>
+      <key>type-alias</key>
+      <dict>
+        <key>begin</key>
+        <string>(alias)\s+</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>name</key>
+            <string>keyword.other.alias.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\})|(?=;)</string>
+        <key>patterns</key>
+        <array>
+          <dict>
             <key>include</key>
-            <string>#statement</string>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>name</key>
+            <string>entity.name.type.class.vein</string>
+            <key>match</key>
+            <string>@?[_[:alpha:]][_[:alnum:]]*</string>
           </dict>
           <dict>
             <key>include</key>
-            <string>#method-declaration</string>
+            <string>#punctuation-accessor</string>
           </dict>
           <dict>
             <key>include</key>
-            <string>#punctuation-semicolon</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#expression-body</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#block</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#invocation-expression</string>
-          </dict>
-          <dict>
-            <key>include</key>
-            <string>#shortform-expression</string>
+            <string>#type-anonymous-method-declaration</string>
           </dict>
         </array>
       </dict>
@@ -1015,6 +1108,31 @@
             <string>#shortform-expression</string>
           </dict>
         </array>
+      </dict>
+      <key>type-anonymous-method-declaration</key>
+      <dict>
+        <key>begin</key>
+        <string>(?&gt;\s?+)\(((?&gt;.)+)?\)(?&gt;\s?+)\:(?&gt;\s?+)(@?[_[:alpha:]][_[:alnum:]]*)\s?+(\|\&gt;)?</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>1</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#operation-argument-list</string>
+              </dict>
+            </array>
+          </dict>
+          <key>2</key>
+          <dict>
+            <key>name</key>
+            <string>entity.name.type</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>(?&lt;=\})|(?=;)</string>
       </dict>
       <key>shortform-expression</key>
       <dict>
