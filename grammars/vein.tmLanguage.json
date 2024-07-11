@@ -4,7 +4,7 @@
 		"If you want to provide a fix or improvement, please create a pull request against the original repository.",
 		"Once accepted there, we are happy to receive an update request."
 	],
-	"version": "https://github.com/vein-lang/tmLanguage/commit/bf7f4248230ad049ebbb0772feeae4287d9f6886",
+	"version": "https://github.com/vein-lang/tmLanguage/commit/13744b15ee51be58abe6b6c8ed6f2e6e12119d7b",
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"scopeName": "source.vein",
 	"name": "Vein Language",
@@ -74,53 +74,6 @@
 		}
 	],
 	"repository": {
-		"script-top-level": [
-			{
-				"include": "#punctuation-semicolon"
-			},
-			{
-				"include": "#statement"
-			},
-			{
-				"include": "#block"
-			},
-			{
-				"include": "#shortform-expression"
-			},
-			{
-				"include": "#comment"
-			},
-			{
-				"include": "#property-declaration"
-			},
-			{
-				"include": "#field-declaration"
-			},
-			{
-				"include": "#indexer-declaration"
-			},
-			{
-				"include": "#punctuation-semicolon"
-			},
-			{
-				"include": "#operation-declaration"
-			},
-			{
-				"include": "#union-declaration"
-			},
-			{
-				"include": "#storage-modifier"
-			},
-			{
-				"include": "#constructor-declaration"
-			},
-			{
-				"include": "#destructor-declaration"
-			},
-			{
-				"include": "#attribute-section"
-			}
-		],
 		"atype": {
 			"patterns": [
 				{
@@ -712,8 +665,37 @@
 				}
 			]
 		},
+		"type-parameter-list": {
+			"begin": "\\<",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.typeparameters.begin.vein"
+				}
+			},
+			"end": "\\>",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.typeparameters.end.vein"
+				}
+			},
+			"patterns": [
+				{
+					"match": "(@?[_[:alpha:]][_[:alnum:]]*)\\b",
+					"name": "entity.name.type.type-parameter.vein"
+				},
+				{
+					"include": "#comment"
+				},
+				{
+					"include": "#punctuation-comma"
+				},
+				{
+					"include": "#attribute-section"
+				}
+			]
+		},
 		"method-declaration": {
-			"begin": "(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)(?>\\s?+)\\(((?>.)+)?\\)(?>\\s?+)\\:(?>\\s?+)(@?[_[:alpha:]][_[:alnum:]]*)\\s?+(\\|\\>)?",
+			"begin": "(?<identifier>[_[:alpha:]][_[:alnum:]]*)(?>\\s?+)(\\<(?>.)+\\>)?\\(((?>.)+)?\\)(?>\\s?+)\\:(?>\\s?+)(@?[_[:alpha:]][_[:alnum:]]*)\\s?+(\\|\\>)?",
 			"beginCaptures": {
 				"1": {
 					"name": "entity.name.function.vein"
@@ -721,11 +703,18 @@
 				"2": {
 					"patterns": [
 						{
-							"include": "#operation-argument-list"
+							"include": "#type-parameter-list"
 						}
 					]
 				},
 				"3": {
+					"patterns": [
+						{
+							"include": "#operation-argument-list"
+						}
+					]
+				},
+				"4": {
 					"name": "entity.name.type"
 				}
 			},

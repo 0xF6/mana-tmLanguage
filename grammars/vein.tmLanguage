@@ -103,69 +103,6 @@
     </array>
     <key>repository</key>
     <dict>
-      <key>script-top-level</key>
-      <array>
-        <dict>
-          <key>include</key>
-          <string>#punctuation-semicolon</string>
-        </dict>
-        <dict>
-          <key>include</key>
-          <string>#statement</string>
-        </dict>
-        <dict>
-          <key>include</key>
-          <string>#block</string>
-        </dict>
-        <dict>
-          <key>include</key>
-          <string>#shortform-expression</string>
-        </dict>
-        <dict>
-          <key>include</key>
-          <string>#comment</string>
-        </dict>
-        <dict>
-          <key>include</key>
-          <string>#property-declaration</string>
-        </dict>
-        <dict>
-          <key>include</key>
-          <string>#field-declaration</string>
-        </dict>
-        <dict>
-          <key>include</key>
-          <string>#indexer-declaration</string>
-        </dict>
-        <dict>
-          <key>include</key>
-          <string>#punctuation-semicolon</string>
-        </dict>
-        <dict>
-          <key>include</key>
-          <string>#operation-declaration</string>
-        </dict>
-        <dict>
-          <key>include</key>
-          <string>#union-declaration</string>
-        </dict>
-        <dict>
-          <key>include</key>
-          <string>#storage-modifier</string>
-        </dict>
-        <dict>
-          <key>include</key>
-          <string>#constructor-declaration</string>
-        </dict>
-        <dict>
-          <key>include</key>
-          <string>#destructor-declaration</string>
-        </dict>
-        <dict>
-          <key>include</key>
-          <string>#attribute-section</string>
-        </dict>
-      </array>
       <key>atype</key>
       <dict>
         <key>patterns</key>
@@ -1044,10 +981,54 @@
           </dict>
         </array>
       </dict>
+      <key>type-parameter-list</key>
+      <dict>
+        <key>begin</key>
+        <string>\&lt;</string>
+        <key>beginCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.definition.typeparameters.begin.vein</string>
+          </dict>
+        </dict>
+        <key>end</key>
+        <string>\&gt;</string>
+        <key>endCaptures</key>
+        <dict>
+          <key>0</key>
+          <dict>
+            <key>name</key>
+            <string>punctuation.definition.typeparameters.end.vein</string>
+          </dict>
+        </dict>
+        <key>patterns</key>
+        <array>
+          <dict>
+            <key>match</key>
+            <string>(@?[_[:alpha:]][_[:alnum:]]*)\b</string>
+            <key>name</key>
+            <string>entity.name.type.type-parameter.vein</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#comment</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#punctuation-comma</string>
+          </dict>
+          <dict>
+            <key>include</key>
+            <string>#attribute-section</string>
+          </dict>
+        </array>
+      </dict>
       <key>method-declaration</key>
       <dict>
         <key>begin</key>
-        <string>(?&lt;identifier&gt;@?[_[:alpha:]][_[:alnum:]]*)(?&gt;\s?+)\(((?&gt;.)+)?\)(?&gt;\s?+)\:(?&gt;\s?+)(@?[_[:alpha:]][_[:alnum:]]*)\s?+(\|\&gt;)?</string>
+        <string>(?&lt;identifier&gt;[_[:alpha:]][_[:alnum:]]*)(?&gt;\s?+)(\&lt;(?&gt;.)+\&gt;)?\(((?&gt;.)+)?\)(?&gt;\s?+)\:(?&gt;\s?+)(@?[_[:alpha:]][_[:alnum:]]*)\s?+(\|\&gt;)?</string>
         <key>beginCaptures</key>
         <dict>
           <key>1</key>
@@ -1061,11 +1042,21 @@
             <array>
               <dict>
                 <key>include</key>
-                <string>#operation-argument-list</string>
+                <string>#type-parameter-list</string>
               </dict>
             </array>
           </dict>
           <key>3</key>
+          <dict>
+            <key>patterns</key>
+            <array>
+              <dict>
+                <key>include</key>
+                <string>#operation-argument-list</string>
+              </dict>
+            </array>
+          </dict>
+          <key>4</key>
           <dict>
             <key>name</key>
             <string>entity.name.type</string>
